@@ -1,0 +1,14 @@
+/.idea
+/.vs
+/wip
+database_template.sql
+/TODO.txt
+/vendor
+/public_html.zip
+/.well-known
+/*.json
+/cadastro/.well-known
+//apache-conf
+//Dockerfile
+//docker-compose.yaml
+// /info
