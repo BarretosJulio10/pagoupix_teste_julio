@@ -1,0 +1,15 @@
+Options -Indexes
+Options -MultiViews
+
+RewriteEngine On
+
+ErrorDocument 403 http://%{HTTP_HOST}%{REQUEST_URI}../../403
+
+RewriteCond %{QUERY_STRING} logged [NC]
+RewriteRule ^(.*)$ logged.php?%{QUERY_STRING}&url=$1 [L]
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{QUERY_STRING} !logged [NC]
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

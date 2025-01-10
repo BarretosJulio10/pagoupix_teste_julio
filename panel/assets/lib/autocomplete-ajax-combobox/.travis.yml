@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 7.1
+
+install:
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - nvm install 10
+  - nvm use 10
+  - npm install
+  - npm install codecov
+
+# Test and get code coverage
+script:
+  - ./vendor/bin/phpunit --coverage-clover clover.xml
+  - npm test
+
+# Submit coverage report to Codecov
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -cF php
+  - ./node_modules/bin/codecov
+ 

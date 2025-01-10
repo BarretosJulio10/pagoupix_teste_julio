@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Text area: jquery.ajax-combobox</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="sample.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="../">
+      <svg class="octicon octicon-home" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M16 9l-3-3V2h-2v2L8 1 0 9h2l1 5c0 .55.45 1 1 1h8c.55 0 1-.45 1-1l1-5h2zm-4 5H9v-4H7v4H4L2.81 7.69 8 2.5l5.19 5.19L12 14z"></path></svg>
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar1">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="basic.html">Basic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sub-info.html">Sub info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="others.html">Others</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="text-area.html">Text area</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<header class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="page-title">
+      <small class="h5">jquery.ajax-combobox</small><br>
+      Text area
+    </h1>
+  </div>
+</header>
+<div class="container">
+  <div class="row main">
+    <nav class="col-lg-4 mb-3 toc">
+      <div id="js-menu-follow">
+        <div class="btn-group">
+          <button id="lang-en" class="btn btn-primary js-btn-lang" type="button" data-lang="en">English</button>
+          <button id="lang-ja" class="btn btn-primary js-btn-lang" type="button" data-lang="ja">日本語</button>
+        </div>
+        <h5 class="mt-2">
+          <span lang="en">Index</span>
+          <span lang="ja">目次</span>
+        </h5>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" href="#sample08_01">
+            <span lang="en">Basic</span>
+            <span lang="ja">テキストエリアの基本</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_02">
+            <span lang="en">No space</span>
+            <span lang="ja">タグ補完後に空白を挿入しない</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_03">
+            <span lang="en">JS object instead of DB</span>
+            <span lang="ja">DBの代わりにJSオブジェクトを検索する</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_04">
+            <span lang="en">Multi tag pattern</span>
+            <span lang="ja">複数のタグパターン</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_05">
+            <span lang="en">Options</span>
+            <span lang="ja">タグごとにオプションを設定する</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_06">
+            <span lang="en">Shorten URL</span>
+            <span lang="ja">URLを短縮する</span>
+          </a>
+          <a class="list-group-item list-group-item-action" href="#sample08_07">
+            <span lang="en">Complex</span>
+            <span lang="ja">両方を使う</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <article class="col-lg-8">
+      <section id="sample08_01" class="card">
+        <h5 class="card-header">
+          <span lang="en">Basic</span>
+          <span lang="ja">テキストエリアの基本</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-basic/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+          <p lang="en">
+            You can search and complement a tag such as "Twitter hashtag" in textarea.<br>
+            Set <code>textarea</code> to <code>plugin_type</code> option.
+            Specify "start symbol" and "end symbol" by using array.
+          </p>
+          <p lang="ja">
+            テキストエリアの中にある、Twitterハッシュタグのような文字列を検索・補完することができます。<br>
+            <code>plugin_type</code>オプションに<code>textarea</code>を指定し開始記号と終了記号を設定することで、テキストエリア内でのタグ検索が可能です。
+          </p>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    <span class="green">plugin_type</span>: <span class="red">'textarea'</span>,
+    <span class="green">tags</span>: [
+      {
+        <span class="green">pattern</span>: <span class="red">['#', '']</span>,
+        <span class="green">db_table</span>: <span class="red">'tag'</span>
+      }
+    ]
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_02" class="card">
+        <h5 class="card-header">
+          <span lang="en">No space</span>
+          <span lang="ja">タグ補完後に空白を挿入しない</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-no-space/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+          <p lang="en">
+            In an initial state, a space is inserted after complement.<br>
+            You can prevent by using <code>space</code> option.
+          </p>
+          <p lang="ja">
+            デフォルトでは、タグ補完後に両側に空白が挿入されます。<br>
+            (すでに空白が存在する場合や、行頭、行末の場合は除きます)<br>
+            <code>space</code>オプションでこの挙動を変えることができます。
+          </p>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    plugin_type: 'textarea',
+    tags: [
+      {
+        pattern: ['[', ']'],
+        <span class="green">space</span>: [<span class="red">false</span>, <span class="red">false</span>],
+        db_table: 'tag'
+      }
+    ],
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_03" class="card">
+        <h5 class="card-header">
+          <span lang="en">JS object instead of DB</span>
+          <span lang="ja">DBの代わりにJSオブジェクトを検索する</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-js-object/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+<pre>
+var <span class="green">tagData</span> = [
+  {id:1,name:'PhysicalEducation',japanese:'体育学'},
+  {id:2,name:'Musicology',       japanese:'音楽学'},
+  {id:3,name:'Mathematics',      japanese:'数学'},
+  ...
+];
+
+('#foo').ajaxComboBox(
+  <span class="green">tagData</span>,
+  {
+    plugin_type: 'textarea',
+    tags: [
+      {
+        pattern: ['@', '']
+      }
+    ],
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_04" class="card">
+        <h5 class="card-header">
+          <span lang="en">Multi tag pattern</span>
+          <span lang="ja">複数のタグパターン</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-multi-tag-pattern/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    lang: 'en',
+    plugin_type: 'textarea',
+    tags: [
+      { <span class="green">// 1st</span>
+        pattern: ['[', ']'],
+        space: [false, false],
+        db_table: 'tag'
+      },
+      { <span class="green">// 2nd</span>
+        pattern: ['#', ''],
+        db_table: 'tag'
+      },
+      { <span class="green">// 3rd</span>
+        pattern: ['@', ''],
+        db_table: 'tag'
+      }
+    ]
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_05" class="card">
+        <h5 class="card-header">
+          <span lang="en">Options</span>
+          <span lang="ja">タグごとにオプションを設定する</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-options/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+          <p lang="en">You can set following options for every tags.</p>
+          <p lang="ja">下記のオプションをタグごとに設定することができます。</p>
+<pre>
+tags: [
+  {
+    db_table: ,
+    field: ,
+    search_field: ,
+    order_by: ,
+    sub_info: ,
+    sub_as: ,
+    show_field: ,
+    hide_field: 
+  }
+]
+</pre>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    plugin_type: 'textarea',
+    tags: [
+      {
+        pattern: ['[', ']'],
+        space: [false, false],
+        db_table: 'tag',
+        <span class="green">sub_info</span>: true
+      },
+      {
+        pattern: ['#', ''],
+        db_table: 'tag',
+        sub_info: true,
+        <span class="green">sub_as</span>: {
+          id: 'TagID',
+          japanese: '日本語'
+        }
+      },
+      {
+        pattern: ['@', ''],
+        db_table: 'tag',
+        <span class="green">order_by</span>: 'name DESC' // ASC or DESC should be UPPERCASE.
+      }
+    ]
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_06" class="card">
+        <h5 class="card-header">
+          <span lang="en">Shorten URL</span>
+          <span lang="ja">URLを短縮する</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="shorten-url/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+          <p lang="en">
+            The result of having shortened URL using external service can be made to reflect in text area. <br>
+            At present, it corresponds only to service of "bit.ly". 
+          </p>
+          <p lang="ja">
+            外部サービスを利用してURLを短縮した結果を、テキストエリア内に反映させることができます。<br>
+            現在のところ、"bit.ly"にしか対応していません。<br>
+          </p>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    plugin_type: 'textarea',
+    <span class="green">shorten_btn</span>: <span class="red">'#foo-shorten'</span>,
+    <span class="green">shorten_src</span>: <span class="red">'bitly.php'</span>,
+    <span class="green">shorten_min</span>: <span class="red">20</span>
+  }
+);
+</pre>
+         </div>
+      </section>
+
+      <section id="sample08_07" class="card">
+        <h5 class="card-header">
+          <span lang="en">Complex</span>
+          <span lang="ja">両方を使う</span>
+        </h5>
+        <div class="card-body">
+          <div class="btn-container">
+            <a class="btn btn-primary" href="text-area-complex/" target="_blank">
+              Sample
+              <svg class="octicon octicon-link-external" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M11 10h1v3c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3v1H1v10h10v-3zM6 2l2.25 2.25L5 7.5 6.5 9l3.25-3.25L12 8V2H6z"></path></svg>
+            </a>
+          </div>
+          <p lang="en">
+            By combining "Complement a tag" and "Shorten URL", the contribution to external service such as "Twitter" becomes convenient. 
+          </p>
+          <p lang="ja">
+            タグ補完とURL短縮を組み合わせることで、Twitterなどの外部サービスとの連携が便利になります。
+          </p>
+<pre>
+$('#foo').ajaxComboBox(
+  'jquery.ajax-combobox.php',
+  {
+    plugin_type: 'textarea',
+    db_table: 'tag',
+    shorten_btn: '#foo-shorten',
+    shorten_src: 'bitly.php',
+    shorten_min: 20,
+    tags: [
+      {
+        pattern: ['[', ']'],
+        space: [false, false]
+      },
+      {
+        pattern: ['#', '']
+      },
+      {
+        pattern: ['@', '']
+      }
+    ]
+  }
+);
+</pre>
+        </div>
+      </section>
+    </article>
+  </div><!-- .row -->
+</div><!-- .container -->
+<footer>
+  <div class="container">
+    powered by <a href="http://www.usamimi.info/new/index.html">usamimi.info</a>, <a href="https://getbootstrap.com/">Bootstrap</a>
+  </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.simple-scroll-follow@3.1.2/dist/jquery.simple-scroll-follow.min.js"></script>
+<script src="sample.js"></script>
+</body>
+</html>

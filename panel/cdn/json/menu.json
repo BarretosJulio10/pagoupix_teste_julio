@@ -1,0 +1,47 @@
+{
+  "dashboard":{
+    "icon": "now-ui-icons design_app",
+    "link": "/panel/dashboard",
+    "id": "dashboard"
+  },
+  "clientes":{
+    "icon": "fa fa-users",
+    "link": "/panel/clients",
+    "id": "clients"
+  },
+  "templates":{
+    "icon": "fa fa-message",
+    "link": "/panel/messages_template",
+    "id": "messages_template"
+  },
+  "planos":{
+    "icon": "fa-solid fa-gem",
+    "link": "/panel/plans",
+    "id": "plans"
+  },
+  "faturas":{
+    "icon": "fa-solid fa-file-invoice-dollar",
+    "link": "/panel/invoices",
+    "id": "invoices"
+  },
+  "carteira":{
+    "icon": "fa fa-wallet",
+    "link": "/panel/finances",
+    "id": "finances"
+  },
+  "whatsapp":{
+    "icon": "fab fa-whatsapp",
+    "link": "/panel/instances",
+    "id": "instances"
+  },
+  "api pagamentos":{
+    "icon": "fa-brands fa-pix",
+    "link": "/panel/gateways",
+    "id": "gateways"
+  },
+  "assinatura":{
+    "icon": "fa-solid fa-credit-card",
+    "link": "/panel/buy",
+    "id": "buy"
+  }
+}

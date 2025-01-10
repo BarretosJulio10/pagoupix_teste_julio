@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-12 text-center">
+        <img width="60%" src="assets/img/gateways/{{name}}.png" alt="">
+    </div>
+    <div class="col-12">
+        <form id="formGateway_{{name}}" action="" class="formGateway__" method="post">
+            <div class="form-group">
+                <label for="access_token" class="label-control" >API Key</label>
+                <input id="access_token" class="form-control" type="text" placeholder="API Key" name="access_token" value="{{access_token}}">
+            </div>
+            <div class="form-group">
+                <label for="address_key" class="label-control" >Chave pix</label>
+                <input id="address_key" class="form-control" type="text" placeholder="Chave pix" name="addressKey" value="{{addressKey}}">
+                <small>Obrigatório para usar pix no checkout</small>
+            </div>
+            <div class="form-group" >
+                <label for="webhook" class="label-control" >Webhook</label>
+                <input id="webhook" class="form-control" type="text" placeholder="Webhook" disabled name="webhook" value="SITE_URL/callback/asaas/notification.php">
+                <small>Adicione o weebhook em sua conta Asaas para "Webhook para cobranças"</small>
+            </div>
+            <input type="hidden" name="name" value="{{name}}" >
+        </form>
+    </div>
+    <div class="col-12 text-right">
+        <a data-gateway="{{name}}" id="save" class="btn btn-success text-white" >Salvar</a>
+    </div>
+    <div class="overlay"
+         style="display: none; justify-content: center; align-items: center; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,.75)">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
+<script>
+    $('#save').click(function() {
+        auth2factor(requestGatewayCode, gatewaysave, '{{name}}',
+            function() {
+                $('.overlay').css('display', 'flex')
+                $('#save').prop('disabled', true)
+            },
+            function() {
+                $('.overlay').css('display', 'none')
+                $('#save').prop('disabled', false)
+            }
+        );
+    })
+</script>
+<style>
+    .lds-roller {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+    .lds-roller div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #888;
+        margin: -4px 0 0 -4px;
+    }
+    .lds-roller div:nth-child(1) {
+        animation-delay: -0.036s;
+    }
+    .lds-roller div:nth-child(1):after {
+        top: 63px;
+        left: 63px;
+    }
+    .lds-roller div:nth-child(2) {
+        animation-delay: -0.072s;
+    }
+    .lds-roller div:nth-child(2):after {
+        top: 68px;
+        left: 56px;
+    }
+    .lds-roller div:nth-child(3) {
+        animation-delay: -0.108s;
+    }
+    .lds-roller div:nth-child(3):after {
+        top: 71px;
+        left: 48px;
+    }
+    .lds-roller div:nth-child(4) {
+        animation-delay: -0.144s;
+    }
+    .lds-roller div:nth-child(4):after {
+        top: 72px;
+        left: 40px;
+    }
+    .lds-roller div:nth-child(5) {
+        animation-delay: -0.18s;
+    }
+    .lds-roller div:nth-child(5):after {
+        top: 71px;
+        left: 32px;
+    }
+    .lds-roller div:nth-child(6) {
+        animation-delay: -0.216s;
+    }
+    .lds-roller div:nth-child(6):after {
+        top: 68px;
+        left: 24px;
+    }
+    .lds-roller div:nth-child(7) {
+        animation-delay: -0.252s;
+    }
+    .lds-roller div:nth-child(7):after {
+        top: 63px;
+        left: 17px;
+    }
+    .lds-roller div:nth-child(8) {
+        animation-delay: -0.288s;
+    }
+    .lds-roller div:nth-child(8):after {
+        top: 56px;
+        left: 12px;
+    }
+    @keyframes lds-roller {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>

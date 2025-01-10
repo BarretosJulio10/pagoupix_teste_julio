@@ -1,0 +1,252 @@
+a{
+  text-decoration: none;
+}
+@media only screen and (max-width: 900px) {
+ .modal-body{
+    width: 95%!important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .modal-body{
+    width: 95%!important;
+  }
+}
+
+@media only screen and (max-width: 362px) {
+  .modal-body{
+    width: 98%!important;
+    margin:none!important;
+    margin-left: 22px!important;
+  }
+}
+.close_modal i{
+ cursor:pointer;
+}
+.modal{
+  position: fixed;
+  z-index: 9;
+  background-color: #00000087;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  margin: 0px;
+  display: none;
+}
+.modal .modal-body{
+  margin: 0 auto;
+  width: 30%;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 2%;
+  border-radius: 7px;
+}
+
+.modal .modal-body .code_pix textarea{
+  width: 100%;
+  border: 1px solid #0000001c;
+  border-radius: 7px;
+}
+#qrcodepix{
+  width: 60%;
+}
+.form__radios{
+  cursor: pointer;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+.text-left{
+  text-align: left;
+}
+.button:disabled{
+  opacity: 0.5!important;
+  cursor: no-drop!important;
+}
+.form__radio i{
+  font-size: 30px;
+}
+.fa-pix{
+  color: #77dd77 !important;
+}
+@use postcss-preset-env {
+  stage: 0;
+}
+
+:root {
+  --color-background: #edecec;
+  --color-primary: #07a14b;
+  --font-family-base: Poppin, sans-serif;
+  --font-size-h1: 1.25rem;
+  --font-size-h2: 1rem;
+}
+
+
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-background);
+  display: grid;
+  font-family: var(--font-family-base);
+  line-height: 1.5;
+  margin: 0;
+  min-block-size: 100vh;
+  place-items: center;
+}
+
+address {
+  font-style: normal;
+}
+
+button {
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  line-height: 1.2;
+  margin-block: 0 1.5em;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  line-height: 1.2;
+  margin-block: 0 0.5em;
+}
+
+legend {
+  font-weight: 600;
+  margin-block-end: 0.5em;
+  padding: 0;
+}
+
+input {
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+
+input[type="radio"] {
+  accent-color: var(--color-primary);
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+}
+
+tbody {
+  color: #b4b4b4;
+}
+
+td {
+  padding-block: 0.125em;
+}
+
+tfoot {
+  border-top: 1px solid #b4b4b4;
+  font-weight: 600;
+}
+
+.align {
+  display: grid;
+  place-items: center;
+}
+
+.button {
+  align-items: center;
+  background-color: var(--color-primary);
+  border-radius: 999em;
+  color: #fff;
+  display: flex;
+  gap: 0.5em;
+  justify-content: center;
+  padding-block: 0.75em;
+  padding-inline: 1em;
+  transition: 0.3s;
+}
+
+.button:focus,
+.button:hover {
+  background-color: #17c966;
+}
+
+.button--full {
+  inline-size: 100%;
+}
+
+.card {
+  border-radius: 1em;
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 1em;
+}
+
+.form {
+  display: grid;
+  gap: 2em;
+}
+
+.form__radios {
+  display: grid;
+  gap: 1em;
+}
+
+.form__radio {
+  align-items: center;
+  background-color: #fefdfe;
+  border-radius: 1em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+  display: flex;
+  padding: 1em;
+}
+
+.form__radio label {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 1em;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding-block: 0.5em;
+  padding-inline: 1em;
+}
+
+.icon {
+  block-size: 1em;
+  display: inline-block;
+  fill: currentColor;
+  inline-size: 1em;
+  vertical-align: middle;
+}
+
+.iphone {
+  background-color: #fbf6f7;
+  background-image: linear-gradient(to bottom, #fbf6f7, #fff);
+  border-radius: 2em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+  inline-size: 335px;
+  overflow: auto;
+  padding: 2em;
+}

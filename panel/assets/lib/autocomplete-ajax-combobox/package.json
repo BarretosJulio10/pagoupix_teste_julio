@@ -1,0 +1,32 @@
+{
+  "name": "jquery.ajax-combobox",
+  "description": "jQuery plugin to create a text box which can auto-complete and pull-down-select.",
+  "license": "MIT",
+  "version": "7.5.3",
+  "author": "Yuusaku Miyazaki <toumin.m7@gmail.com>",
+  "homepage": "https://github.com/sutara79/jquery.ajax-combobox",
+  "main": "dist/jquery.ajax-combobox.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sutara79/jquery.ajax-combobox.git"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "power-assert": "^1.6.0",
+    "puppeteer": "^1.7.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "scripts": {
+    "test": "node ./test/js/test.js",
+    "watch": "webpack --watch",
+    "map": "webpack --devtool source-map",
+    "build": "webpack"
+  }
+}

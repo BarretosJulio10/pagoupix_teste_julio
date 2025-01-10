@@ -1,0 +1,37 @@
+<style>
+
+    .form-auth-code {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 8px;
+    }
+
+    .form-auth-label {
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+    }
+
+</style>
+<div class="row px-3">
+    <div class="col-12 mt-3">
+        <div class="form-group position-relative">
+            <label for="auth_code" class="label-control form-auth-label" style="margin-bottom: 0">Codigo de Autenticação</label>
+            <sub style="margin-bottom: 1.1em; display: block; width: 100%; text-align: center; line-height: 130%; font-size: 13px">
+                Codigo enviado para o email.
+            </sub>
+            <input id="auth_code" class="form-control form-auth-code text-center" type="text" name="auth_code" maxlength="5" onblur="this.focus()">
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        <button id="save" class="btn btn-success text-white">Confirmar</button>
+    </div>
+</div>
+<script>
+    setTimeout(() => $('#auth_code').focus(), 500);
+    $('button#save').click(function() {
+        localStorage.setItem('auth_code', $('input#auth_code').val());
+        $('#modalAuthCode').modal('hide');
+    })
+</script>
