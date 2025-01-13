@@ -14,12 +14,8 @@ if ($_SERVER['SERVER_NAME'] == 'pagou.pix') {
 } elseif ($_SERVER['SERVER_NAME'] == 'pagoupix.computatus.org'){
     define('SITE_URL', 'https://pagoupix.computatus.org');
 } else {
-    echo '<pre>';
-    var_dump($_SERVER);
-    echo '</pre>';
-    var_dump($_SERVER['SERVER_NAME']); die();
     //define('SITE_URL', 'https://pagoupix.com.br');
-    define('SITE_URL', 'https://pagoupix.com.br');
+    define('SITE_URL', $_SERVER['SCRIPT_URI']);
 }
 
 define('FORM_URL', 'https://form.pagoupix.com.br');
