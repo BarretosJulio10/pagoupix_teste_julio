@@ -11,9 +11,13 @@ if ($_SERVER['SERVER_NAME'] == 'pagou.pix') {
     $dirname = ((object) pathinfo($_SERVER['SCRIPT_NAME']))->dirname;
     $dirname = str_replace('/panel', '', $dirname);
     define('SITE_URL', 'http://' . $_SERVER['SERVER_NAME'].':8000');
-} elseif ($_SERVER['SERVER_NAME'] == 'pagoupix.computatus.org')
+} elseif ($_SERVER['SERVER_NAME'] == 'pagoupix.computatus.org'){
     define('SITE_URL', 'https://pagoupix.computatus.org');
-else define('SITE_URL', 'https://pagoupix.com.br');
+} else {
+    var_dump($_SERVER['name']); die();
+    //define('SITE_URL', 'https://pagoupix.com.br');
+    define('SITE_URL', 'https://pagoupix.com.br');
+}
 
 define('FORM_URL', 'https://form.pagoupix.com.br');
 define('SITE_TITLE', 'Pagou Pix');
