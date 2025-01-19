@@ -326,7 +326,7 @@ $(function() {
     }
 
     if (pagename === "clients") {
-        $("#cpf_client_charge").keydown(function(){
+        $("#cpf_client_charge1").keydown(function(){
             try {
                 $("#cpf_client_charge").unmask();
             }
@@ -347,17 +347,24 @@ $(function() {
             $(this).val('');
             $(this).val(currentValue);
         });
-        $("#cpf_client").keydown(function(){
+
+        $("#cpf_client1").keydown(function(){
             try {
                 $("#cpf_client").unmask();
             }
             catch (e) {}
+
+            let numero_cpf = $("#cpf_client").val();
+            numero_cpf = numero_cpf.replaceAll('.','').replaceAll('/','').replaceAll('-','');
+            console.log('numero_cpf',numero_cpf);
         
-            let tamanho = $("#cpf_client").val().length;
+            //let tamanho = $("#cpf_client").val().length;
+            let tamanho = numero_cpf.length;
+            console.log('numero_cpf tamanho',tamanho);
         
             if(tamanho < 11) $("#cpf_client").mask("999.999.999-99");
             else $("#cpf_client").mask("99.999.999/9999-99");
-        
+            
             // ajustando foco
             let elem = this;
             setTimeout(function(){
@@ -368,6 +375,7 @@ $(function() {
             let currentValue = $(this).val();
             $(this).val('');
             $(this).val(currentValue);
+            
       });
       
         var url_clients = urlsite + "/panel/model/controller/signatures/post.php?filter=not_expire";
@@ -839,9 +847,6 @@ $('#modalAddCharge').on('hide.bs.modal', function (e) {
 
 function addChargeNow(){
 
-    $("#btnAddCarge").prop('disabled', true);
-    $("#btnAddCarge").html('Aguarde ');
-
     let email   = $("#email_client_charge").val();
     let name    = $("#name_client_charge").val();
     let cpf     = $("#cpf_client_charge").val();
@@ -853,6 +858,10 @@ function addChargeNow(){
     let temL    = $("#template_late").val();
     let sendZap = checkboxvalue("#charge_send_wpp");
     let idC     = $("#signatura_id").val();
+    let dt_venc = $("#dt_vencimento").val();
+
+    $("#btnAddCarge").prop('disabled', true);
+    $("#btnAddCarge").html('Aguarde ');
 
      var dadosJson = new Object();
      dadosJson.email   = email;
@@ -867,6 +876,7 @@ function addChargeNow(){
      dadosJson.sendZap = sendZap;
      dadosJson.idC     = idC;
      dadosJson.plano   = 0;
+     if(dt_venc && dt_venc != '') dadosJson.expire_date = dt_venc;
 
      var dados = JSON.stringify(dadosJson);
 
@@ -2881,4 +2891,125 @@ function addPlan() {
             align: 'center'
           }
     });
+  }
+
+  function validarCPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;
+    if (strCPF == "00000000000") return false;
+
+    for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
+
+      if ((Resto == 10) || (Resto == 11))  Resto = 0;
+      if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+    Soma = 0;
+      for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+      Resto = (Soma * 10) % 11;
+
+      if ((Resto == 10) || (Resto == 11))  Resto = 0;
+      if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+      return true;
+  }
+
+  function validarCNPJ(cnpj) {
+ 
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+    if(cnpj == '') return false;
+     
+    if (cnpj.length != 14)
+        return false;
+ 
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" || 
+        cnpj == "11111111111111" || 
+        cnpj == "22222222222222" || 
+        cnpj == "33333333333333" || 
+        cnpj == "44444444444444" || 
+        cnpj == "55555555555555" || 
+        cnpj == "66666666666666" || 
+        cnpj == "77777777777777" || 
+        cnpj == "88888888888888" || 
+        cnpj == "99999999999999")
+        return false;
+         
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0,tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+         
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0,tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+          return false;
+           
+    return true;
+    
+  }
+
+  function validaData (valor) {
+    // Verifica se a entrada é uma string
+    if (typeof valor !== 'string') {
+      return false
+    }
+  
+    // Verifica formado da data
+    if (!/^\d{2}\/\d{2}\/\d{4}	&#36;/.test(valor)) {
+      return false
+    }
+  
+    // Divide a data para o objeto "data"
+    const partesData = valor.split('/')
+    const data = { 
+      dia: partesData[0], 
+      mes: partesData[1], 
+      ano: partesData[2] 
+    }
+    
+    // Converte strings em número
+    const dia = parseInt(data.dia)
+    const mes = parseInt(data.mes)
+    const ano = parseInt(data.ano)
+    
+    // Dias de cada mês, incluindo ajuste para ano bissexto
+    const diasNoMes = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+  
+    // Atualiza os dias do mês de fevereiro para ano bisexto
+    if (ano % 400 === 0 || ano % 4 === 0 && ano % 100 !== 0) {
+      diasNoMes[2] = 29
+    }
+    
+    // Regras de validação:
+    // Mês deve estar entre 1 e 12, e o dia deve ser maior que zero
+    if (mes < 1 || mes > 12 || dia < 1) {
+      return false
+    }
+    // Valida número de dias do mês
+    else if (dia > diasNoMes[mes]) {
+      return false
+    }
+    
+    // Passou nas validações
+    return true
   }

@@ -45,10 +45,11 @@ $('#checkout').on('click', function(e){
       if(data.data.type == "credit_card"){
           location.href=data.data.link;
       }else if(data.data.type == "pix"){
-         $("#qrcodepix").attr('src',data.data.qrcodepix);
-         $("#codepix").val(data.data.pixcode);
-         $("#modalpix").show(100);
-         getStatusInvoice(invoice_id);
+        
+        $("#qrcodepix").attr('src',data.data.qrcodepix);
+        $("#codepix").val(data.data.pixcode);
+        $("#modalpix").show(100);
+        getStatusInvoice(invoice_id);
       }else if(data.data.type == "boleto"){
          $("#link_boleto").attr('href', data.data.boleto);
          $("#modalboleto").show(100);

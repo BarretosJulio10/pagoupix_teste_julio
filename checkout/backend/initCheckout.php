@@ -82,8 +82,7 @@
 
                  if($lib){
 
-
-                   // get dados gateway
+                  // get dados gateway
                    $dados_gateway = $options->getOption($lib,true) ? $options->getOption($lib,true) : 0;
 
                    if($dados_gateway){
@@ -143,6 +142,7 @@
                      require_once "lib/{$lib}/model/{$lib}.class.php";
 
                      $payment = new $lib($dados_gateway);
+                      
                      $payment->unit_price   = (double)$options->convertMoney(1,$invoice_data->value);
                      $payment->discount     = (double)$options->convertMoney(1,$invoice_data->discount);
                      $payment->amount       = (double)($payment->unit_price-$payment->discount);

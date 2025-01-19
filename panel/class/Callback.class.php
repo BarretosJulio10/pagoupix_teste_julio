@@ -414,45 +414,48 @@ class Callback extends Conn{
             $fetch_consult = $query_consult->fetchAll(PDO::FETCH_OBJ);
             if (count($fetch_consult) > 0) return;
           }
-          
-          $valor_insert = $this->invoice->valor_register != NULL ? $this->invoice->valor_register : $this->invoice->value;
-          $info_juros   = $this->invoice->juros != NULL ? "Juros: R$ ". json_decode($this->invoice->juros)->valor_juros. "\nMulta: R$ ". json_decode($this->invoice->juros)->valor_multa ."\n" : "";
-          
-          $query = $this->pdo->prepare("INSERT INTO `finances` (tipo,valor,caixa_id, client_id, obs, fatura_id) VALUES (:tipo, :valor, :caixa_id, :client_id, :obs, :fatura_id) ");
-          $query->bindValue(':tipo', 'entrada');
-          $query->bindValue(':valor', $valor_insert);
-          $query->bindValue(':caixa_id', 0);
-          $query->bindValue(':client_id', $this->invoice->client_id);
-          $query->bindValue(':obs', $info_juros . "Fatura de R$ ".$this->invoice->value."\nFatura ID: #".$this->invoice->id."\nCliente: ".$this->signature->nome."\nPlano: ".$this->plan->nome);
-          $query->bindValue(':fatura_id', $this->invoice->id);
 
-          if($query->execute()){
+          if ($this->invoice->status != 'approved') {
+            $valor_insert = $this->invoice->valor_register != NULL ? $this->invoice->valor_register : $this->invoice->value;
+            $info_juros   = $this->invoice->juros != NULL ? "Juros: R$ ". json_decode($this->invoice->juros)->valor_juros. "\nMulta: R$ ". json_decode($this->invoice->juros)->valor_multa ."\n" : "";
             
-             if($this->plan->custo != '0,00' && $this->plan->custo != '0'){
-                  
-                  $query = $this->pdo->prepare("INSERT INTO `finances` (tipo,valor,caixa_id, client_id, obs) VALUES (:tipo, :valor, :caixa_id, :client_id, :obs) ");
-                  $query->bindValue(':tipo', 'saida');
-                  $query->bindValue(':valor', $this->plan->custo);
-                  $query->bindValue(':caixa_id', 0);
-                  $query->bindValue(':client_id', $this->invoice->client_id);
-                  $query->bindValue(':obs', "Custo por assinante\nFatura de R$ ".$this->invoice->value."\nCusto de: ".$this->plan->custo."\nFatura ID: #".$this->invoice->id."\nCliente: ".$this->signature->nome."\nPlano: ".$this->plan->nome);
-        
-                  if($query->execute()){
-                    return true;
-                  }else{
-                    return false;
-                  }
+            $query = $this->pdo->prepare("INSERT INTO `finances` (tipo,valor,caixa_id, client_id, obs, fatura_id, origem) VALUES (:tipo, :valor, :caixa_id, :client_id, :obs, :fatura_id, :origem) ");
+            $query->bindValue(':tipo', 'entrada');
+            $query->bindValue(':valor', $valor_insert);
+            $query->bindValue(':caixa_id', 0);
+            $query->bindValue(':client_id', $this->invoice->client_id);
+            $query->bindValue(':obs', $info_juros . "Fatura de R$ ".$this->invoice->value."\nFatura ID: #".$this->invoice->id."\nCliente: ".$this->signature->nome."\nPlano: ".$this->plan->nome);
+            $query->bindValue(':fatura_id', $this->invoice->id);
+            $query->bindValue(':origem', $this->gateway);
+
+            if($query->execute()){
               
-             }else{
-                 return true;
-             }
-            
-            
-          }else{
+              if($this->plan->custo != '0,00' && $this->plan->custo != '0'){
+                    
+                    $query = $this->pdo->prepare("INSERT INTO `finances` (tipo,valor,caixa_id, client_id, obs) VALUES (:tipo, :valor, :caixa_id, :client_id, :obs) ");
+                    $query->bindValue(':tipo', 'saida');
+                    $query->bindValue(':valor', $this->plan->custo);
+                    $query->bindValue(':caixa_id', 0);
+                    $query->bindValue(':client_id', $this->invoice->client_id);
+                    $query->bindValue(':obs', "Custo por assinante\nFatura de R$ ".$this->invoice->value."\nCusto de: ".$this->plan->custo."\nFatura ID: #".$this->invoice->id."\nCliente: ".$this->signature->nome."\nPlano: ".$this->plan->nome);
+          
+                    if($query->execute()){
+                      return true;
+                    }else{
+                      return false;
+                    }
+                
+              }else{
+                  return true;
+              }
+              
+              
+            }else{
+              return false;
+            }
+          } else {
             return false;
           }
-          
-
       }
       
       public function removePlanTemp(){

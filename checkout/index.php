@@ -39,10 +39,12 @@
 
         // get tema checkout
         $options            = new Options($invoice_data->client_id);
+        
         $tema_checkout      = $options->getOption('tema_checkout',true) ? $options->getOption('tema_checkout',true) : 'r1';
 
         // get juros multa
         $juros_multa        = $options->getOption('setting_juros_multa',true) ? json_decode($options->getOption('setting_juros_multa',true))->active == 1 ? json_decode($options->getOption('setting_juros_multa',true)) : false : false;
+        
 
         // verifica se ja expirou
         $expirate = $invoice->timeExpirateInvoice($assinante->expire_date);
@@ -64,7 +66,7 @@
             if($multiple > 0){
                 $valor_invoice_calc  = $invoice->convertMoney(1, $invoice_data->value);
                 $porcentagem_juros   = $juros_multa->juros_n;
-                $valor_juros         = $valor_invoice_calc * ($porcentagem_juros / 100);
+                $valor_juros         = ($valor_invoice_calc * ($porcentagem_juros / 100)) * $multiple;
             }else{
                 $valor_juros = 0;
             }

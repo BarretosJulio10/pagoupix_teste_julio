@@ -180,7 +180,7 @@
               <div id="body_charge_div" class="row">
 
 
-                <div class="col-md-12" >
+                <div class="col-md-6" >
                     <div class="form-group">
                       <input type="email" autocomplete="off" class="form-control" placeholder="Informe o email do cliente" id="email_client_charge" name="email_client_charge" value="">
                       <small style="margin-left:10px;">Email do cliente <b class="text-danger" >*</b></small>
@@ -199,7 +199,7 @@
                 
                  <div class="col-md-6" >
                     <div class="form-group">
-                      <input type="text" autocomplete="off" maxlength="13" class="form-control" placeholder="CPF" id="cpf_client_charge" name="cpf_client_charge" value="">
+                      <input type="text" autocomplete="off" maxlength="13" class="form-control" placeholder="CPF" data="valida_cpf_cnpj_client" id="cpf_client_charge" name="cpf_client_charge" value="">
                       <small style="margin-left:10px;">CPF cliente <b class="text-danger" >*</b></small>
                     </div>
                 </div>
@@ -211,10 +211,17 @@
                     </div>
                 </div>
                 
-                 <div class="col-md-6" >
+                <div class="col-md-6" >
                     <div class="form-group">
                       <input type="text" class="form-control" placeholder="Valor da cobrança" id="valor_charge" name="valor_charge" value="">
                       <small style="margin-left:10px;">Valor da cobrança <b class="text-danger" >*</b></small>
+                    </div>
+                </div>
+
+                <div class="col-md-6" >
+                    <div class="form-group">
+                      <input type="date" class="form-control" placeholder="Vencimento" id="dt_vencimento" name="dt_vencimento" value="<?=date('d/m/Y')?>">
+                      <small style="margin-left:10px;">Vencimento <b class="text-danger" >*</b></small>
                     </div>
                 </div>
 
@@ -340,7 +347,7 @@
                 
                  <div class="col-md-6" >
                     <div class="form-group">
-                      <input type="text" autocomplete="off" maxlength="13" class="form-control" placeholder="CPF ou CNPJ" id="cpf_client" name="cpf_client" value="">
+                      <input type="text" autocomplete="off" maxlength="20" class="form-control" placeholder="CPF ou CNPJ" data="valida_cpf_cnpj_client" id="cpf_client" name="cpf_client" value="">
                       <small style="margin-left:10px;">CPF ou CNPJ</small>
                     </div>
                 </div>
@@ -636,3 +643,55 @@
 
 
       <?php include_once 'inc/footer.php'; ?>
+
+      <script>
+
+        function valida_cpf_cnpj(el) {
+          let num = el.val();
+          num = num.replaceAll('.','').replaceAll('/','').replaceAll('-','');
+
+          if (num > 0) {
+
+            if (num.length > 11) {
+              el.mask("99.999.999/9999-99");
+            } else {
+              el.mask("999.999.999-99");
+            }
+
+            $.ajax({
+              'url':'/panel/model/controller/client/data.php',
+              'type':'post',
+              'data':{'action':'valida_cpf_cnpj', 'cpf_cnpj':el.val()},
+              'dataType':'json',
+              success:(data)=>{
+                if (!data.success) {
+                  pNotify(''+(num.length > 11 ? 'CNPJ' : 'CPF')+' Invalido!', 'danger');
+                  el.val('').focus();
+                  el.unmask();
+                  return false;
+                }
+              }
+            });
+            
+          }/* else {
+            pNotify('O campo CPF / CNPJ precisa ser preenchido!', 'danger');
+            el.val('').focus();
+            return false;
+          }*/
+        }
+
+        $(document).ready(function(){
+
+          //$("#dt_vencimento").mask("99/99/9999");
+
+          $(document).on('focusout', 'input[data=valida_cpf_cnpj_client]',function(){
+            valida_cpf_cnpj($(this));
+          });
+
+          $(document).on('keyup', 'input[data=valida_cpf_cnpj_client]',function(){
+            if ($(this).val().length) {
+              $(this).unmask();
+            }
+          });
+        });
+      </script>

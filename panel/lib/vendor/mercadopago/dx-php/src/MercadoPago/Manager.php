@@ -419,7 +419,7 @@ class Manager
             $fields = $this->_getIdempotencyAttributes($configuration->attributes);
         }
         if ($fields != '') {
-            $query['headers']['x-idempotency-key'] = hash(self::$CIPHER, $fields);
+            $query['headers']['X-Idempotency-Key'] = hash(self::$CIPHER, $fields);
         }
     }
     /**
