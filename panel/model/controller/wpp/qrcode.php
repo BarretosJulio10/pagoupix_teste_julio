@@ -2,6 +2,7 @@
 
 @session_start();
 
+require_once '../../../config.php';
 require_once '../../../class/Conn.class.php';
 require_once '../../../class/Wpp.class.php';
 
@@ -10,25 +11,18 @@ if (isset($_SESSION['CLIENT']) && isset($_POST['idinstance'])) {
     try {
         $idinstance = trim($_POST['idinstance']);
         if ($idinstance != "") {
-            $wpp = new Wpp($client_id);
+            $wpp = new Wpp($client_id, VERSION_API_WPP);
             $instance_data = $wpp->getInstance($idinstance);
             if ($instance_data) {
                 if ($instance_data->client_id == $client_id) {
                     // get status
                     $status_instance = json_decode($wpp->getStatus($instance_data->name));
                     if ($status_instance->erro) {
-                        if (isset($_POST['init'])) {
-                            // start whatsapp and qrcode
-                            $wpp->startWhats($instance_data->name);
-                            sleep(4);
-                            $qrcode = $wpp->getQrcode($instance_data->name);
-                            echo $qrcode;
-                        }
-                        else {
+   
                             // qrcode only
                             $qrcode = $wpp->getQrcode($instance_data->name);
                             echo $qrcode;
-                        }
+                        
                     }
                     else echo json_encode(['erro' => false, 'message' => 'connected']);
                 }

@@ -6,11 +6,12 @@
 
     $client_id = $_SESSION['CLIENT']['id'];
 
+    require_once '../config.php';
     require_once '../class/Conn.class.php';
     require_once '../class/Client.class.php';
     require_once '../class/Wpp.class.php';
 
-    $wpp    = new Wpp($client_id);
+    $wpp    = new Wpp($client_id, VERSION_API_WPP);
     $client = new Client($client_id);
 
     if( isset($_POST['nome']) ){

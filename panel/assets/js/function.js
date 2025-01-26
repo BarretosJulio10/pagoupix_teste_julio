@@ -971,11 +971,19 @@ $("#saveJuros").on('click', function(){
     $("#saveJuros").prop('disabled', true);
     $("#saveJuros").html('  Aguarde');
 
+    let juros_n = $("#juros_n").val();
+    juros_n = juros_n.replace('R$', '', juros_n);
+    juros_n = juros_n.replace('%', '', juros_n);
+    juros_n = juros_n.replace('.', '', juros_n);
+    juros_n = juros_n.replace(',', '.', juros_n);
+    juros_n = juros_n.trim();
+
     var dadosJson             = new Object();
     dadosJson.frequency_juros = $("#frequency_juros").val();
-    dadosJson.juros_n         = $("#juros_n").val();
+    dadosJson.juros_n         = juros_n;
     dadosJson.cobrar_multa    = $("#cobrar_multa").val();
     dadosJson.valor_multa     = $("#valor_multa").val();
+    dadosJson.tipo_juros      = $("#tipo_juros").val();;
     dadosJson.active          = checkboxvalue("#juros_charge");
 
     let juros = true;

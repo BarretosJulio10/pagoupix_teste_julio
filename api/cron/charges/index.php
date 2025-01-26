@@ -41,7 +41,7 @@
         
         // verifica setting charge
         $setting_charge = $options->getOption('setting_charge', true);
-        
+
         if($setting_charge){
             
             $setting_charge = json_decode($setting_charge);
@@ -81,7 +81,7 @@
                 $next_data = date('Y-m-d', $totime);
             }
 
-            if($interval_charge){
+            if($interval_charge) {
                 if($setting_charge_interval->next_date == date('d-m-Y')){
                     file_get_contents( SITE_URL . '/api/cron/charges/interval/'.$client_id);
                     echo 'teste';
@@ -90,21 +90,25 @@
 
             // get signatures
             $signatures = $charges->getSignaturesExpire($date_now, $next_data, $uniq, $last_charge, $dates_lasted);
-            
+
             if($signatures){
-                
+
                 if($setting_charge->days_charge != "false"){
-                    
+
                     // verifica whatsapp
                     $instance = $charges->getInstanceByClient();
-                    
+
                     if($instance){
 
                         foreach($signatures as $key => $signature){
-                            
-                            if($plan_id){
+
+
+
+                            if ($plan_id) {
                                 $plan = $charges->getPlanbyId($plan_id);
-                            }else{
+                            }
+                            else {
+                                var_dump($signature->plan_id);
                                 $plan = $charges->getPlanbyId($signature->plan_id);
                             }
             

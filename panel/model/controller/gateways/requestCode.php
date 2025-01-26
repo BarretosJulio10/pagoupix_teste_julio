@@ -17,9 +17,7 @@ class RequestCode extends Conn {
 
     function requestGatewayCode() {
         $client_info = $this->client->getClient();
-
         $email = new Email();
-
         $code_confirmation = $email->generateCode();
         $_SESSION['gateway_code_confirmation'] = $code_confirmation;
         $template_email = file_get_contents('../../../../templates_mail/request_code_gateway_mail.html');

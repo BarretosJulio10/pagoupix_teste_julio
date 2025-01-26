@@ -5,7 +5,7 @@
  */
 class Instance extends Conn{
 
-  public $endpoint   = "http://whatsapp.pagoupix.com.br/";
+  public $endpoint   = "http://167.114.6.95/";
 
     public function __construct($access_token){
         $this->conn = new Conn;

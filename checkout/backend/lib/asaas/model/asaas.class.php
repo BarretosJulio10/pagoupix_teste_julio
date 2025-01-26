@@ -153,7 +153,7 @@
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://www.asaas.com/api/v3/paymentLinks',
+          CURLOPT_URL => 'https://api.asaas.com/v3/paymentLinks',
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -210,12 +210,13 @@
         return false;
       }
 
-     }else if($this->method == "pix"){
+     }
+     else if($this->method == "pix"){
 
        $curl = curl_init();
 
        curl_setopt_array($curl, array(
-         CURLOPT_URL => 'https://www.asaas.com/api/v3/pix/qrCodes/static',
+         CURLOPT_URL => 'https://api.asaas.com/v3/pix/qrCodes/static',
          CURLOPT_RETURNTRANSFER => true,
          CURLOPT_ENCODING => '',
          CURLOPT_MAXREDIRS => 10,
@@ -271,14 +272,15 @@
          return false;
        }
 
-     }else if($this->method == "boleto"){
+     }
+     else if($this->method == "boleto"){
 
          $curl = curl_init();
 
          if (!$this->payer || !$this->payer->nome || !$this->payer->cpf) exit;
 
          curl_setopt_array($curl, array(
-             CURLOPT_URL => "https://www.asaas.com/api/v3/customers?cpfCnpj={$this->payer->cpf}",
+             CURLOPT_URL => "https://api.asaas.com/v3/customers?cpfCnpj={$this->payer->cpf}",
              CURLOPT_RETURNTRANSFER => true,
              CURLOPT_ENCODING => '',
              CURLOPT_MAXREDIRS => 10,
@@ -305,7 +307,7 @@
 
          if (!$client_id) {
              curl_setopt_array($curl, array(
-                 CURLOPT_URL => "https://www.asaas.com/api/v3/customers",
+                 CURLOPT_URL => "https://api.asaas.com/v3/customers",
                  CURLOPT_RETURNTRANSFER => true,
                  CURLOPT_ENCODING => '',
                  CURLOPT_MAXREDIRS => 10,
@@ -346,7 +348,7 @@
          }';
 
          curl_setopt_array($curl, array(
-           CURLOPT_URL => 'https://www.asaas.com/api/v3/payments',
+           CURLOPT_URL => 'https://api.asaas.com/v3/payments',
            CURLOPT_RETURNTRANSFER => true,
            CURLOPT_ENCODING => '',
            CURLOPT_MAXREDIRS => 10,

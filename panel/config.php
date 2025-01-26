@@ -32,6 +32,9 @@ define('DAYS_DUE', 7);
 // define o valor da assinatura
 define('VALOR_ASSINATURA', '49,90');
 
+// version API Whatsapp
+define('VERSION_API_WPP', 'v2');
+
 // whatsapp compra de creditos parceiro
 define('WPP_SUPORTE', '21982153814');
 

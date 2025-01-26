@@ -66,7 +66,14 @@
             if($multiple > 0){
                 $valor_invoice_calc  = $invoice->convertMoney(1, $invoice_data->value);
                 $porcentagem_juros   = $juros_multa->juros_n;
-                $valor_juros         = ($valor_invoice_calc * ($porcentagem_juros / 100)) * $multiple;
+                $tipo_juros = (isset($juros_multa->tipo_juros) ? $juros_multa->tipo_juros : 'porcentagem');
+
+                if ($tipo_juros=='valor') {
+                  $valor_juros = ($porcentagem_juros * $multiple);
+                } else {
+                  $valor_juros = ($valor_invoice_calc * ($porcentagem_juros / 100)) * $multiple;
+                }
+
             }else{
                 $valor_juros = 0;
             }

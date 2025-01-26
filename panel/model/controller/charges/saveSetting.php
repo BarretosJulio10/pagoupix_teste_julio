@@ -19,13 +19,14 @@ if (isset($_SESSION['CLIENT'], $_POST['dados'])) {
 
             $options = new Options($client_id);
             $cron = new Cron($client_id);
+            
             $setting_charge = $options->getOption('setting_charge', true);
 
 
             if (isset($_POST['juros'])) {
 
                 if ($dados->juros_n <= 0) {
-                    echo json_encode(['erro' => true, 'message' => 'Defina uma  porcentagem de juros']);
+                    echo json_encode(['erro' => true, 'message' => 'Defina o valor do juros']);
                     exit;
                 }
 

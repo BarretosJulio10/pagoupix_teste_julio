@@ -24,9 +24,9 @@
             
           if($client_data->client_id == $client_id){
 
-              file_get_contents(SITE_URL.'/api/cron/charges/'.$client_id.'?uniq='.$idclient);
+              $a = file_get_contents(SITE_URL.'/api/cron/charges/'.$client_id.'?uniq='.$idclient);
 
-              echo json_encode(['erro' => false, 'message' => 'Mensagem adicionada na fila de envios']);
+              echo json_encode(['erro' => false, 'message' => 'Mensagem adicionada na fila de envios', 'sm' => $a]);
 
           }else{
              echo json_encode(['erro' => true, 'message' => 'Desculpe, tente novamente mais tarde.']);

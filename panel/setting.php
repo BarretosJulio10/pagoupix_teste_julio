@@ -358,7 +358,7 @@
                             <p>Deseja cobrar juros e multa dos clientes que atrasarem o pagamento das cobranças?</p>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Cobras juros</label>
                                 <select id="frequency_juros"  class="form-control">
@@ -368,11 +368,24 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="col-md-3">
+
+                        <div class="col-md-2">
                             <div class="form-group">
-                                 <label>Porcentagem do juros</label>
-                                 <input type="number" value="<?php if($options_juros_multa){ echo $options_juros_multa->juros_n; } ?>" placeholder="0%" id="juros_n" class="form-control" />
+                                <label>Tipo juros</label>
+                                <select id="tipo_juros"  class="form-control">
+                                    <option <?php if($options_juros_multa->tipo_juros == 'porcentagem'  ){ echo 'selected'; } ?> value="porcentagem" >Porcentagem</option>
+                                    <option <?php if($options_juros_multa->tipo_juros == 'valor'  ){ echo 'selected'; } ?> value="valor" >Valor</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                 <label id="label-juros-n"><?=($options_juros_multa->tipo_juros == 'porcentagem' ? 'Porcentagem' : 'Valor')?> do juros</label>
+                                 <?php
+                                 $juros_n = isset($options_juros_multa->juros_n) ? number_format($options_juros_multa->juros_n, 2, ',', '.'): ''; 
+                                 ?>
+                                 <input type="text" value="<?=$juros_n?>" placeholder="<?=($options_juros_multa->tipo_juros=='valor'?'R$ 0,00' : '% 0,00')?>" id="juros_n" class="form-control" />
                             </div>
                         </div>
                         
@@ -495,3 +508,24 @@
 
 
       <?php include_once 'inc/footer.php'; ?>
+
+<script>
+$(document).ready(function(){
+
+    if ('<?=$options_juros_multa->tipo_juros?>' == 'porcentagem') {
+        $("#juros_n").maskMoney({prefix: '% ', thousands: ".",decimal: ",", affixesStay: true});
+    } else {
+        $("#juros_n").maskMoney({prefix: 'R$ ', thousands: ".",decimal: ",", affixesStay: true});
+    }
+    
+    $(document).on('change', 'select[id=tipo_juros]', function(){
+        if ($(this).val()=='valor') {
+            $('label[id=label-juros-n]').html('Valor do Juros');
+            $("#juros_n").attr('placeholder', 'R$ 0,00').maskMoney({prefix: 'R$ ', thousands: ".",decimal: ",", affixesStay: true}).focus();
+        } else {
+            $('label[id=label-juros-n]').html('Porcentagem do Juros');
+            $("#juros_n").attr('placeholder', '% 0,00').maskMoney({prefix: '% ', thousands: ".",decimal: ",", affixesStay: true}).focus();
+        }
+    });
+});
+</script>

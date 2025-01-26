@@ -134,7 +134,7 @@
                         $curl = curl_init();
                         
                         curl_setopt_array($curl, array(
-                          CURLOPT_URL => SITE_URL.'/api/v1/message/'.$value->type,
+                          CURLOPT_URL => SITE_URL.'/api/'.VERSION_API_WPP.'/message/'.$value->type,
                           CURLOPT_RETURNTRANSFER => true,
                           CURLOPT_ENCODING => '',
                           CURLOPT_MAXREDIRS => 10,
@@ -151,6 +151,7 @@
                         
                         $response = curl_exec($curl);
                         curl_close($curl);
+                        
                        
                    }
                    

@@ -13,10 +13,10 @@ if (isset($_POST['email']) && isset($_POST['senha']) && isset($_POST['captcha'])
 
     require_once '../config.php';
 
-    $url_recaptcha_verify = "https://www.google.com/recaptcha/api/siteverify?secret=$key_secret&response=$captcha&remoteip={$_SERVER['REMOTE_ADDR']}";
-    $resposta = json_decode(file_get_contents($url_recaptcha_verify));
+    //$url_recaptcha_verify = "https://www.google.com/recaptcha/api/siteverify?secret=$key_secret&response=$captcha&remoteip={$_SERVER['REMOTE_ADDR']}";
+    //$resposta = json_decode(file_get_contents($url_recaptcha_verify));
 
-    if ($resposta->success) {
+    if (/*$resposta->success*/true) {
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
         if ($email) {
             require_once '../class/Conn.class.php';

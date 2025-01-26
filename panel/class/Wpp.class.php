@@ -4,14 +4,17 @@
  * Wpp
  */
 class Wpp extends Conn{
+    
+  private $version_api;
 
 
-  function __construct($id=0){
+  function __construct($id=0, $version_api = 'v2'){
       
         $this->conn      = new Conn;
         $this->pdo       = $this->conn->pdo();
         $this->client_id = $id;
         $this->domain    = $this->conn->getDomain();
+        $this->version_api = $version_api;
     }
 
 
@@ -85,7 +88,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/v1/instance/status/'.$idinstance,
+          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/status/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -116,15 +119,15 @@ class Wpp extends Conn{
                 }else{
                     self::changeStatusInstance($idinstance,'allow');
                     
-                    return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
+                    return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
                 }
             }else{
-                return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
+                return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
             }
             
         } catch(\Exception  $e){
             
-             return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
+             return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
         }
         
     }
@@ -136,7 +139,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/v1/instance/start/'.$idinstance,
+          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/start/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -166,7 +169,7 @@ class Wpp extends Conn{
         
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/v1/instance/create?token='.trim($idinstance).'&name='.trim($idinstance),
+          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/create?token='.trim($idinstance).'&name='.trim($idinstance),
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -213,7 +216,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/v1/instance/disconnect/'.$idinstance,
+          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/disconnect/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -263,7 +266,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/v1/instance/qrcode/'.$idinstance,
+          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/qrcode/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -278,7 +281,7 @@ class Wpp extends Conn{
         ));
         
         $response = curl_exec($curl);
-        
+
         curl_close($curl);
         
         try{
