@@ -31,16 +31,7 @@ class RecuperableError {
                 if(is_array($cause) && (!isset($cause['code']) && !isset($cause['description']))){
                     $this->proccess_causes($cause);
                 }else{
-                    $code = isset($cause['code']) ? $cause['code'] : "";
-                    $description = $cause;
-                    if (is_array($cause)) {
-                        if (isset($cause['description'])) {
-                            $description = $cause['description'];
-                        } elseif (isset($cause['message'])) {
-                            $description = $cause['message'];
-                        }
-                    }
-                    $this->add_cause($code, $description);
+                    $this->add_cause($cause['code'], $cause['description']);
                 }
             }
         }

@@ -7,7 +7,6 @@ use Exception;
  *
  * @package MercadoPago
  */
-#[\AllowDynamicProperties]
 abstract class Entity
 {
     /**
@@ -132,8 +131,9 @@ abstract class Entity
     /**
      * @return mixed
      */
-    public static function all($params = [], $options = [])
+    public static function all($options = [])
     {
+        $params = [];
         $class = get_called_class();
         $entity = new $class();
         $entities =  array();
@@ -173,12 +173,19 @@ abstract class Entity
 
         $response = self::$_manager->execute($entityToQuery, 'get');
         if ($response['code'] == "200" || $response['code'] == "201") {
-            $searchResult->fetch($filters, $response['body']);
+            $results = $response['body']['results'];
+            foreach ($results as $result) {
+                $entity = new $class();
+                $entity->_fillFromArray($entity, $result);
+                $searchResult->append($entity);
+            }
+            $searchResult->setPaginateParams($response['body']['paging']);
+            $searchResult->_filters = $filters;
         } elseif (intval($response['code']) >= 400 && intval($response['code']) < 500) {
             $searchResult->process_error_body($response['body']);
-            throw new Exception($response['body']['message']);
+            throw new Exception ($response['body']['message']);
         } else {
-            throw new Exception("Internal API Error");
+            throw new Exception ("Internal API Error");
         }
         return $searchResult;
     }
@@ -265,15 +272,12 @@ abstract class Entity
     function process_error_body($message){
         $recuperable_error = new RecuperableError(
             $message['message'],
-            (isset($message['error']) ? $message['error'] : ''),
+            $message['error'],
             $message['status']
         );
-        if (isset($message['cause'])) {
-            $recuperable_error->proccess_causes($message['cause']);
-        }
+        $recuperable_error->proccess_causes($message['cause']);
         $this->error = $recuperable_error;
     }
-
 
     /**
      * @param $name
@@ -454,17 +458,6 @@ abstract class Entity
         }
         throw new \Exception('Wrong type ' . gettype($value) . '. It should be ' . $type . ' for property ' . $property);
     }
-
-    /**
-     * Fill entity from data with nested object creation
-     *
-     * @param $entity
-     * @param $data
-     */
-    public function fillFromArray($entity, $data) {
-        $this->_fillFromArray($entity, $data);
-    }
-
     /**
      * Fill entity from data with nested object creation
      *

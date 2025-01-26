@@ -385,13 +385,13 @@ class Callback extends Conn{
 
               $expire_date = strtotime($this->signature->expire_date);
               
-              // if( strtotime('now') > $expire_date || strtotime('now') == $expire_date){
-              //     // data a partir de hoje
-              //     $new_expire_date = date('Y-m-d', strtotime('+'. $array_clico[$this->plan->ciclo] , strtotime('now') ) );
-              // }else{
+            //   if( strtotime('now') > $expire_date || strtotime('now') == $expire_date){
+                  // data a partir de hoje
+                //   $new_expire_date = date('Y-m-d', strtotime('+'. $array_clico[$this->plan->ciclo] , strtotime('now') ) );
+            //   }else{
                   // data baseado no user
                   $new_expire_date = date('Y-m-d', strtotime('+'. $array_clico[$this->plan->ciclo] , $expire_date ) );
-              // }
+            //   }
               
               $query = $this->pdo->prepare("UPDATE `assinante` SET expire_date=:expire_date WHERE id=:id AND client_id=:client_id");
               $query->bindValue(':expire_date', $new_expire_date);

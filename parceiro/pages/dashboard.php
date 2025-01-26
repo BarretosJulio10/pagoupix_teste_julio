@@ -8,6 +8,11 @@
     $getPixParceiro       = $client->getPixParceiro($_SESSION['CLIENT']['id']);
     $getPinByParceiro     = $comprovante_c->getPinByParceiro($_SESSION['CLIENT']['id']);
 
+    /*
+    echo '<pre>';
+    var_dump($getClientsByParceiro);
+    exit;
+    */
   
  ?>
 
@@ -156,7 +161,11 @@
                                             </tfoot>
                                             <tbody>
                                                 
-                                                <?php if($getClientsByParceiro){ ?>
+                                                <?php if($getClientsByParceiro){
+
+                                                    ?>
+
+
                                                 
                                                   <?php foreach($getClientsByParceiro as $key => $client_info){
                                                   

@@ -193,14 +193,8 @@ require_once "lib/mercadopago/lib/vendor/autoload.php";
        $payment->transaction_amount = $this->amount;
        $payment->payment_method_id  = "pix";
 
-       //$payment->notification_url   = $this->site.'/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
-       $payment->notification_url   = 'https://pagoupix.com.br/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
+       $payment->notification_url   = $this->site.'/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
        $payment->external_reference = $this->invoice_ref;
-
-        //$request_options = new MercadoPago\Client\Common\RequestOptions();
-        $request_op = new MercadoPago\Config();
-        
-        //$request_options->setCustomHeaders(["X-Idempotency-Key: <SOME_UNIQUE_VALUE>"]);
 
        $payment->payer = array(
            "email"      => $this->payer->email,
@@ -215,11 +209,10 @@ require_once "lib/mercadopago/lib/vendor/autoload.php";
             )
          );
 
-        
+
        try {
 
          $payment->save();
-
          $dados_pix       = $payment->point_of_interaction->transaction_data;
          $this->pixcode   = $dados_pix->qr_code;
          $this->qrcodepix = "data:image/jpeg;base64,{$dados_pix->qr_code_base64}";
@@ -240,8 +233,7 @@ require_once "lib/mercadopago/lib/vendor/autoload.php";
        $payment->transaction_amount = $this->amount;
        $payment->payment_method_id  = "bolbradesco";
 
-       //$payment->notification_url   = $this->site.'/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
-       $payment->notification_url   = 'https://pagoupix.com.br/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
+       $payment->notification_url   = $this->site.'/callback/mercadopago/notification.php?reference='.$this->invoice_ref;
        $payment->external_reference = $this->invoice_ref;
        
        $number_doc = str_replace(' ', '', str_replace('-', '', str_replace('/', '', str_replace('.', '', $this->payer->cpf))));
@@ -272,7 +264,7 @@ require_once "lib/mercadopago/lib/vendor/autoload.php";
        try {
            
          $payment->save();
-
+         
          $this->boleto = $payment->transaction_details->external_resource_url;
          return true;
 

@@ -3,7 +3,7 @@
 /wip
 database_template.sql
 /TODO.txt
-// /vendor
+/vendor
 /public_html.zip
 /.well-known
 /*.json
@@ -12,3 +12,4 @@ database_template.sql
 //Dockerfile
 //docker-compose.yaml
 /info
+*.log

@@ -12,7 +12,6 @@ use MercadoPago\Annotation\Attribute;
  * 
  * @RestMethod(resource="/checkout/preferences", method="create")
  * @RestMethod(resource="/checkout/preferences/:id", method="read")
- * @RestMethod(resource="/checkout/preferences/search", method="search")
  * @RestMethod(resource="/checkout/preferences/:id", method="update")
  */
 class Preference extends Entity
@@ -40,42 +39,42 @@ class Preference extends Entity
 
     /**
      * notification_url
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", maxLength = 500)
      * @var string
      */
     protected $notification_url;
 
     /**
      * init_point
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", readOnly = true)
      * @var string
      */
     protected $init_point;
 
     /**
      * sandbox_init_point
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", readOnly = true)
      * @var string
      */
     protected $sandbox_init_point;
 
     /**
      * operation_type
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", readOnly = true)
      * @var string
      */
     protected $operation_type;
 
     /**
      * additional_info
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", maxLength = 600)
      * @var string
      */
     protected $additional_info;
 
     /**
      * external_reference
-     * @Attribute(type = "string")
+     * @Attribute(type = "string", maxLength = 256)
      * @var string
      */
     protected $external_reference;
@@ -111,14 +110,14 @@ class Preference extends Entity
 
     /**
      * collector_id
-     * @Attribute(type = "int")
+     * @Attribute(type = "int", readOnly = true)
      * @var int
      */
     protected $collector_id;
 
     /**
      * client_id
-     * @Attribute(type = "int")
+     * @Attribute(type = "int", readOnly = true)
      * @var int
      */
     protected $client_id;

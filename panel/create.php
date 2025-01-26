@@ -2,6 +2,7 @@
 <?php include_once 'inc/head.php'; ?>
 <body class="">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
       <div class="container">
 
         <div style="margin-top:100px;" class="row">

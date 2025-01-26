@@ -9,7 +9,7 @@
     try {
 
         if( $_POST['dados'] != ''){
-            
+
           require_once '../../../config.php';
           require_once '../../../class/Conn.class.php';
           require_once '../../../class/Options.class.php';
@@ -32,8 +32,7 @@
               echo json_encode(['erro' => true, 'message' => 'Desculpe, tente mais tarde.']);
               exit;
           }
-          
-          
+
           if( $dados->email == "" || 
               $dados->name == "" || 
               $dados->wpp == "" || 
@@ -55,7 +54,7 @@
           $dados->id_assinante = $dados->idC;
           $dados->status       = "pending";
           $dados->plan_id      = $dados->plano;
-          
+
           if($dados->idC == 0){
               // create signature
               $addSig = $signature->addClient($dados);
@@ -99,14 +98,14 @@
               
               $dados->plan_id = $planAdd;
           
-         }else{
+         }
+         else{
             $dados->plan_id = $dados->plano; 
          }
+
+         $addInvoice = $invoice->addInvoice($dados, true, $templates);
           
-          
-          $addInvoice = $invoice->addInvoice($dados, true, $templates);
-          
-          if($addInvoice){
+         if($addInvoice) {
               
               $invoiceData = $invoice->getInvoiceByid($addInvoice);
               
@@ -114,11 +113,11 @@
                   
                   if($validTemplate){
                       if($dados->sendZap == 1){
-                          
-                           file_get_contents( SITE_URL . '/api/cron/charges/'.$client_id.'?uniq='.$dados->id_assinante.'&plan_id='.$dados->plan_id);
+
+                           $resp = file_get_contents( SITE_URL . '/api/cron/charges/'.$client_id.'?uniq='.$dados->id_assinante.'&plan_id='.$dados->plan_id);
                           
                           // enviar cobranca por wpp
-                           echo json_encode(['erro' => false, 'message' => 'Cobrança criada', 'ref' => base64_decode($invoiceData->ref), 'sendZap' => 'sended']);
+                           echo json_encode(['erro' => false, 'message' => 'Cobrança criada', 'ref' => base64_decode($invoiceData->ref), 'sendZap' => 'sended', 'fgc' => $resp]);
                            exit; 
                            
                       }else{
@@ -144,7 +143,8 @@
         }
         
         
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       echo json_encode(['erro' => true, 'message' => 'Desculpe, tente mais tarde.']);
     }
     

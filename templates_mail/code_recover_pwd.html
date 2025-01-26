@@ -50,21 +50,6 @@
       display: block;
       margin: 13px 0;
     }
-
-    .btn-redefinir-senha {
-      width: 100px; 
-      height: 20px; 
-      text-align: center; 
-      color: #ffffff; 
-      background: #071332;
-      padding: 20px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: none !important;
-    }
   </style>
   <!--[if !mso]>
 			<!-->
@@ -252,14 +237,11 @@
                             </p>
                             <h2 style="font-family: Whitney, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;font-weight: 500;font-size: 20px;color: #4F545C;letter-spacing: 0.27px;">Olá {{user_name}}!</h2>
                               <p>Está com problemas para acessar sua conta em {{site_name}}!. <br />
-                                Não se preocupe, clique no botão abaixo para recuperar sua conta.</p>
-                                <!--<p>Link: <a href="{{link_reset}}" >{{link_reset}}</a></p> -->
-                              <br><br>
-                              <p style="text-align: center;">
-                                <a href="{{link_reset}}" class="btn-redefinir-senha">Redefinir senha</a>
-                              </p>
-
-                            </div>
+                                Não se preocupe, use o link abaixo para recuperar sua conta.</p>
+                                <p>
+                                    Link: <a href="{{link_reset}}" >{{link_reset}}</a>
+                                </p>
+                              </div>
                         </td>
                       </tr>
 

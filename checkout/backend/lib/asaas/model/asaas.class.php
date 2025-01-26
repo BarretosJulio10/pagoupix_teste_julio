@@ -327,8 +327,6 @@
              ));
 
              $response = curl_exec($curl);
-             //var_dump($response);
-             //exit;
 
              if ($response) {
                  $response = json_decode($response);
