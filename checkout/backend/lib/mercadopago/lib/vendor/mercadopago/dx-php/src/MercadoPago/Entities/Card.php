@@ -15,6 +15,7 @@ use MercadoPago\Annotation\Attribute;
  * @link https://www.mercadopago.com/developers/en/guides/online-payments/web-tokenize-checkout/customers-and-cards Click here for more infos
  * 
  * @RestMethod(resource="/v1/customers/:customer_id/cards", method="create")
+ * @RestMethod(resource="/v1/customers/:customer_id/cards", method="list")
  * @RestMethod(resource="/v1/customers/:customer_id/cards/:id", method="read")
  * @RestMethod(resource="/v1/customers/:customer_id/cards/:id", method="update")
  * @RestMethod(resource="/v1/customers/:customer_id/cards/:id", method="delete")
@@ -30,8 +31,15 @@ class Card extends Entity
     protected $id;
 
     /**
+     * token
+     * @Attribute()
+     * @var string
+     */
+    protected $token;
+
+    /**
      * customer_id
-     * @Attribute(required = true)
+     * @Attribute(required = true, serialize = false)
      * @var string
      */
     protected $customer_id;
