@@ -144,7 +144,7 @@ if(isset(apache_request_headers()['Authorization'])){
                                     if($discount_pix>0 && $dados->payment_method == "pix"){
                                         // novo valor com desconto por pix
                                         $invoice_data->value = $options->calcPix($invoice_data->value,$discount_pix);
-                                    }
+                                    } 
 
                                     $invoice->setValorRegister($invoice_data->id, $invoice_data->value);
 

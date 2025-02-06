@@ -155,7 +155,7 @@ class Charges extends Conn{
 
         if (count($fetch_consult) > 0) {
             return $fetch_consult;
-        } else {
+        } else {          
             return false;
         }
     }

@@ -7,8 +7,8 @@ database_template.sql
 /.well-known
 /*.json
 /cadastro/.well-known
-//apache-conf
-//Dockerfile
-//docker-compose.yaml
-/info
+apache-conf
+Dockerfile
+docker-compose.yaml
 *.log
+info/*

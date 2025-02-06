@@ -18,6 +18,8 @@
           require_once '../../../class/Messages.class.php';
           require_once '../../../class/Invoice.class.php';
           require_once '../../../class/Plans.class.php';
+          require_once "../../../class/Charges.class.php";
+          require_once '../../../class/Cron.class.php';
           
           $options   = new Options($client_id);
           $signature = new Signature($client_id);
@@ -25,9 +27,11 @@
           $messages  = new Messages($client_id);
           $invoice   = new Invoice($client_id);
           $plans     = new Plans($client_id);
+          $charges = new Charges($client_id);
+          $cron = new Cron($client_id);
           
           $dados = json_decode($_POST['dados']);
-          
+
           if(!$dados){
               echo json_encode(['erro' => true, 'message' => 'Desculpe, tente mais tarde.']);
               exit;
@@ -65,6 +69,13 @@
                  exit;  
               }
           }
+            
+            //ENVIA A NOTIFICAÇÃO REFERENTE A FATURA AVULSA
+            $setting_charge = json_decode($options->getOption('setting_charge', true));
+
+            if ($dados->sendZap == 0 && strtotime($dados->expire_date) <= strtotime(date('Y-m-d', strtotime("+".$setting_charge->days_antes_charge." days", strtotime(date('Y-m-d')))))) {
+                $dados->sendZap = 1;
+            }
           
           $validTemplate = false;
           
@@ -104,7 +115,7 @@
          }
 
          $addInvoice = $invoice->addInvoice($dados, true, $templates);
-          
+
          if($addInvoice) {
               
               $invoiceData = $invoice->getInvoiceByid($addInvoice);
@@ -112,9 +123,16 @@
               if($invoiceData){
                   
                   if($validTemplate){
+
                       if($dados->sendZap == 1){
 
-                           $resp = file_get_contents( SITE_URL . '/api/cron/charges/'.$client_id.'?uniq='.$dados->id_assinante.'&plan_id='.$dados->plan_id);
+                           $site_url = SITE_URL;
+
+                           if (SITE_URL == 'http://localhost:8000') {
+                            $site_url = 'https://pagoupix.com.br';
+                           }
+
+                           $resp = file_get_contents( $site_url . '/api/cron/charges/'.$client_id.'?uniq='.$dados->id_assinante.'&plan_id='.$dados->plan_id);
                           
                           // enviar cobranca por wpp
                            echo json_encode(['erro' => false, 'message' => 'Cobrança criada', 'ref' => base64_decode($invoiceData->ref), 'sendZap' => 'sended', 'fgc' => $resp]);
