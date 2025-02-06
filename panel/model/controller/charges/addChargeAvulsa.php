@@ -28,7 +28,7 @@
           $invoice   = new Invoice($client_id);
           $plans     = new Plans($client_id);
           $charges = new Charges($client_id);
-          $cron = new Cron($client_id);
+          //$cron = new Cron($client_id);
           
           $dados = json_decode($_POST['dados']);
 
@@ -72,10 +72,12 @@
             
             //ENVIA A NOTIFICAÇÃO REFERENTE A FATURA AVULSA
             $setting_charge = json_decode($options->getOption('setting_charge', true));
-
-            if ($dados->sendZap == 0 && strtotime($dados->expire_date) <= strtotime(date('Y-m-d', strtotime("+".$setting_charge->days_antes_charge." days", strtotime(date('Y-m-d')))))) {
-                $dados->sendZap = 1;
+            if (isset($setting_charge->days_antes_charge)) {
+                if ($dados->sendZap == 0 && strtotime($dados->expire_date) <= strtotime(date('Y-m-d', strtotime("+".$setting_charge->days_antes_charge." days", strtotime(date('Y-m-d')))))) {
+                    $dados->sendZap = 1;
+                }
             }
+
           
           $validTemplate = false;
           

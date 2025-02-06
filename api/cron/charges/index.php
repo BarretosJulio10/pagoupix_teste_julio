@@ -102,116 +102,114 @@
 
                         foreach($signatures as $key => $signature){
 
-                            if ($signature->id == 5421) {
+                            if ($plan_id) {
+                                $plan = $charges->getPlanbyId($plan_id);
+                            } else {
+                                //var_dump($signature->plan_id);
+                                $plan = $charges->getPlanbyId($signature->plan_id);
+                            }
+                            
+                            $invoiceLasted = $invoice->getInvoiceOpen($signature->id);
 
-                                if ($plan_id) {
-                                    $plan = $charges->getPlanbyId($plan_id);
-                                } else {
-                                    //var_dump($signature->plan_id);
-                                    $plan = $charges->getPlanbyId($signature->plan_id);
+                            if (!$plan) {
+                                $plan = $charges->getPlanbyId($invoiceLasted->plan_id);
+                            }
+
+                            if($plan){
+                                
+                                // expirate invoice
+                                $expirate_days_invocie = !isset($setting_charge->expire_date_days) ? 7 : (int)$setting_charge->expire_date_days;
+                                $expirate_invoice = strtotime('+'.$expirate_days_invocie.' days', strtotime('now'));
+                                
+                                // criar fatura
+                                $dadosInvoice               = new stdClass();
+                                $dadosInvoice->id_assinante = $signature->id;
+                                $dadosInvoice->assinante_id = $dadosInvoice->id_assinante;
+                                $dadosInvoice->status       = 'pending';
+                                $dadosInvoice->value        = $plan->valor;
+                                $dadosInvoice->plan_id      = $plan->id;
+                                $dadosInvoice->expire_date  = date('Y-m-d H:i:s', $expirate_invoice);
+                                $dadosInvoice->client_id    = $client->id;
+                                if($invoiceLasted == false){
+                                    $invoiceAdd             = $invoice->addInvoice($dadosInvoice,true);
+                                }else{
+                                    $invoiceAdd             = $invoiceLasted->id;
                                 }
                                 
-                                $invoiceLasted = $invoice->getInvoiceOpen($signature->id);
+                                $invoiceData                = $invoice->getInvoiceByid($invoiceAdd);
+                                $dadosInvoice->invoice_id   = $invoiceData->id;
 
-                                if (!$plan) {
-                                    $plan = $charges->getPlanbyId($invoiceLasted->plan_id);
+                                if($signature->expired < 1){
+                                    $template_message = $charges->getTemplateById($plan->template_charge);
+                                }else{
+                                    $template_message = $charges->getTemplateById($plan->template_late);
+                                    $template_message = $template_message ? $template_message : $charges->getTemplateById($plan->template_charge);
                                 }
-    
-                                if($plan){
-                                    
-                                    // expirate invoice
-                                    $expirate_days_invocie = !isset($setting_charge->expire_date_days) ? 7 : (int)$setting_charge->expire_date_days;
-                                    $expirate_invoice = strtotime('+'.$expirate_days_invocie.' days', strtotime('now'));
-                                    
-                                    // criar fatura
-                                    $dadosInvoice               = new stdClass();
-                                    $dadosInvoice->id_assinante = $signature->id;
-                                    $dadosInvoice->assinante_id = $dadosInvoice->id_assinante;
-                                    $dadosInvoice->status       = 'pending';
-                                    $dadosInvoice->value        = $plan->valor;
-                                    $dadosInvoice->plan_id      = $plan->id;
-                                    $dadosInvoice->expire_date  = date('Y-m-d H:i:s', $expirate_invoice);
-                                    $dadosInvoice->client_id    = $client->id;
-                                    if($invoiceLasted == false){
-                                        $invoiceAdd             = $invoice->addInvoice($dadosInvoice,true);
-                                    }else{
-                                        $invoiceAdd             = $invoiceLasted->id;
-                                    }
-                                    
-                                    $invoiceData                = $invoice->getInvoiceByid($invoiceAdd);
-                                    $dadosInvoice->invoice_id   = $invoiceData->id;
-    
-                                    if($signature->expired < 1){
-                                        $template_message = $charges->getTemplateById($plan->template_charge);
-                                    }else{
-                                        $template_message = $charges->getTemplateById($plan->template_late);
-                                        $template_message = $template_message ? $template_message : $charges->getTemplateById($plan->template_charge);
-                                    }
-    
-                                                      
-                                    if($template_message){
-                                        
-                                         $dados_template = json_decode($template_message->texto);
-                                        
-                                          foreach($dados_template as $keyTempalte => $tema){
-                                              if($tema->type == "pix"){
-                                                  require_once 'pay/pix.php';
-                                              }else if($tema->type == "boleto"){
-                                                  require_once 'pay/boleto.php';
-                                              }else if($tema->type == "fatura"){
-                                                  $dados_template->$keyTempalte->content = "*Seu Link de Pagamento* \n ".SITE_URL."/".base64_decode($invoiceData->ref);
-                                             }
-                                          }
-                                          
-                                          $content_template = json_encode($dados_template);
 
-                                          $dados                = new stdClass();
-                                          $dados->assinante_id  = $signature->id;
-                                          $dados->client_id     = $client->id;
-                                          $dados->content       = $content_template;
-                                          $dados->template_id   = $template_message->id;
-                                          $dados->instance_id   = $instance->name;
-                                          $dados->phone         = $signature->ddi.$signature->whatsapp;
-                                          
-                                          
-                                          /*conecta whatsapp em caso de queda do servidor*/
-                                         $curl = curl_init();
-                                         
-                                         $site_url = parse_url(SITE_URL, PHP_URL_HOST);
-
-                                        if (SITE_URL == 'http://localhost:8000') {
-                                            $site_url = parse_url('https://pagoupix.com.br',PHP_URL_HOST);
+                                                    
+                                if($template_message){
+                                    
+                                        $dados_template = json_decode($template_message->texto);
+                                    
+                                        foreach($dados_template as $keyTempalte => $tema){
+                                            if($tema->type == "pix"){
+                                                require_once 'pay/pix.php';
+                                            }else if($tema->type == "boleto"){
+                                                require_once 'pay/boleto.php';
+                                            }else if($tema->type == "fatura"){
+                                                $dados_template->$keyTempalte->content = "*Seu Link de Pagamento* \n ".SITE_URL."/".base64_decode($invoiceData->ref);
+                                            }
                                         }
                                         
-                                        //CURLOPT_URL => 'http://whatsapp.'.parse_url(SITE_URL, PHP_URL_HOST).'/session/connect',
+                                        $content_template = json_encode($dados_template);
+
+                                        $dados                = new stdClass();
+                                        $dados->assinante_id  = $signature->id;
+                                        $dados->client_id     = $client->id;
+                                        $dados->content       = $content_template;
+                                        $dados->template_id   = $template_message->id;
+                                        $dados->instance_id   = $instance->name;
+                                        $dados->phone         = $signature->ddi.$signature->whatsapp;
                                         
-                                         curl_setopt_array($curl, array(
-                                            CURLOPT_URL => 'http://whatsapp.'.$site_url.'/session/connect',
-                                            CURLOPT_RETURNTRANSFER => true,
-                                            CURLOPT_ENCODING => '',
-                                            CURLOPT_MAXREDIRS => 10,
-                                            CURLOPT_TIMEOUT => 2,
-                                            CURLOPT_FOLLOWLOCATION => true,
-                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                            CURLOPT_CUSTOMREQUEST => 'POST',
-                                            CURLOPT_POSTFIELDS =>'{"Subscribe":["Message"],"Immediate":false}',
-                                            CURLOPT_HTTPHEADER => array(
-                                              'Token: '.trim($instance->name),
-                                              'Content-Type: application/json'
-                                            ),
-                                          ));
                                         
-                                        $response = curl_exec($curl);
-                                        curl_close($curl);
-    
-                                        $charges->insertFila($dados);
-                                        $charges->insertCharge($dadosInvoice);
-                                            
+                                        /*conecta whatsapp em caso de queda do servidor*/
+                                        $curl = curl_init();
+                                        
+                                        $site_url = parse_url(SITE_URL, PHP_URL_HOST);
+
+                                    if (SITE_URL == 'http://localhost:8000') {
+                                        $site_url = parse_url('https://pagoupix.com.br',PHP_URL_HOST);
                                     }
                                     
-                                }
+                                    //CURLOPT_URL => 'http://whatsapp.'.parse_url(SITE_URL, PHP_URL_HOST).'/session/connect',
+                                    
+                                        curl_setopt_array($curl, array(
+                                        CURLOPT_URL => 'http://whatsapp.'.$site_url.'/session/connect',
+                                        CURLOPT_RETURNTRANSFER => true,
+                                        CURLOPT_ENCODING => '',
+                                        CURLOPT_MAXREDIRS => 10,
+                                        CURLOPT_TIMEOUT => 2,
+                                        CURLOPT_FOLLOWLOCATION => true,
+                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                        CURLOPT_CUSTOMREQUEST => 'POST',
+                                        CURLOPT_POSTFIELDS =>'{"Subscribe":["Message"],"Immediate":false}',
+                                        CURLOPT_HTTPHEADER => array(
+                                            'Token: '.trim($instance->name),
+                                            'Content-Type: application/json'
+                                        ),
+                                        ));
+                                    
+                                    $response = curl_exec($curl);
+                                    curl_close($curl);
 
+                                    $charges->insertFila($dados);
+                                    $charges->insertCharge($dadosInvoice);
+                                        
+                                }
+                                
                             }
+
+                            
 
                             
                             
