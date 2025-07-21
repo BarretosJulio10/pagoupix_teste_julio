@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 @session_start();
 
 if (isset($_SESSION['CLIENT'], $_POST['dados'])) {
@@ -16,9 +20,10 @@ if (isset($_SESSION['CLIENT'], $_POST['dados'])) {
             require_once '../../../class/Conn.class.php';
             require_once '../../../class/Options.class.php';
             require_once '../../../class/Cron.class.php';
+            require_once '../../../class/Cronicle.class.php';
 
             $options = new Options($client_id);
-            $cron = new Cron($client_id);
+            $cron = new Cronicle($client_id);
             
             $setting_charge = $options->getOption('setting_charge', true);
 
@@ -172,7 +177,7 @@ if (isset($_SESSION['CLIENT'], $_POST['dados'])) {
 
                     $setting_charge = json_decode($setting_charge);
 
-                    $cron->removeCron($setting_charge->cronjobid);
+                    $removec = $cron->removeCron($setting_charge->cronjobid);
 
                     $setting = new stdClass();
                     $setting->days_charge = $dados->days_charge;

@@ -15,7 +15,10 @@
         require_once '../../../config.php';
         require_once '../../../class/Conn.class.php';
         require_once '../../../class/Wpp.class.php';
+        require_once '../../../class/Client.class.php';
 
+        $client         = new Client($client_id);
+          
         $wpp = new Wpp($client_id, VERSION_API_WPP);
 
         $instance_data = $wpp->getInstance($idinstance);
@@ -32,9 +35,13 @@
                        
                    $disconnect = $wpp->disconnect($instance_data->name);
                    
+
                    if($disconnect){
                        
                        $wpp->getStatus($instance_data->name);
+                       sleep(3);
+                       $wpp->delete_account($instance_data->name);
+                       $removeInstances = $client->removeInstanceAll();
                        
                        echo json_encode(['erro' => false, 'message' => 'Desconectado!']);
                        

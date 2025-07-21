@@ -1,0 +1,180 @@
+[15-Jul-2025 13:46:43 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:47:53 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 13:49:20 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:49:53 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 13:49:53 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 13:51:00 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:51:57 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:53:56 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:55:01 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:55:02 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 13:55:45 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:56:02 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:56:21 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:56:59 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 13:57:05 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:57:24 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:59:49 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 13:59:50 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:00:29 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:01:26 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:04:24 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:04:43 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:08:10 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:12:01 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:14:05 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:16:13 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:17:09 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:18:16 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:18:36 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:91
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 91
+[15-Jul-2025 14:20:57 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:20:57 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:21:02 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:21:03 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:21:13 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:21:24 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90
+[15-Jul-2025 14:21:33 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function query() on bool in /home/pagoupix/public_html/panel/class/Messages.class.php:90
+Stack trace:
+#0 /home/pagoupix/public_html/api/cron/fila.php(19): Messages->getFila()
+#1 {main}
+  thrown in /home/pagoupix/public_html/panel/class/Messages.class.php on line 90

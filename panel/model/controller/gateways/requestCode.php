@@ -1,52 +1,62 @@
 <?php
-@session_start();
 
-require_once '../../../config.php';
-require_once '../../../../../vendor/autoload.php';
-require_once '../../../class/Conn.class.php';
-require_once '../../../class/Client.class.php';
-require_once '../../../class/Email.class.php';
+session_start();
 
-class RequestCode extends Conn {
+if (isset($_SESSION['CLIENT'])) {
 
-    function __construct($client_id) {
-        $this->conn = new Conn;
-        $this->pdo  = $this->conn->pdo();
-        $this->client = new Client($client_id);
-    }
+    require_once '../../../config.php';
+    require_once '../../../class/Conn.class.php';
+    require_once '../../../class/Client.class.php';
+    require_once '../../../class/Email.class.php'; // Provavelmente necessário
 
-    function requestGatewayCode() {
-        $client_info = $this->client->getClient();
+    $client_id = trim($_SESSION['CLIENT']['id']);
+
+    $client = new Client();
+    $client_info = $client->getClientByid($client_id);
+    if ($client_info) {
+
+        $code = rand(10000, 99999);
+        $_SESSION['gateway_code_confirmation'] = $code;
+
+        // Verifica se a classe Email está definida
+        if (!class_exists('Email')) {
+            echo json_encode(['erro' => true, 'message' => 'Erro interno: classe de email não encontrada.']);
+            exit;
+        }
+
         $email = new Email();
-        $code_confirmation = $email->generateCode();
-        $_SESSION['gateway_code_confirmation'] = $code_confirmation;
-        $template_email = file_get_contents('../../../../templates_mail/request_code_gateway_mail.html');
-        $email->subject = utf8_decode('Codigo de Autenticação');
-        $email->from = array('name' => SITE_TITLE, 'email' => 'no-reply@'.parse_url(SITE_URL, PHP_URL_HOST));
-        $email->to = $client_info->email;
-        $email->content = $template_email;
-        $email->params  = [
+
+        // Carrega o template de e-mail com verificação
+        $template_path = '../../../../templates_mail/request_code_gateway_mail.html';
+        if (!file_exists($template_path)) {
+            echo json_encode(['erro' => true, 'message' => 'Erro ao carregar o template de e-mail.']);
+            exit;
+        }
+
+        $template_email = file_get_contents($template_path);
+
+        // Substitui os parâmetros no conteúdo do e-mail
+        $params = [
             '{{site_name}}' => SITE_TITLE,
             '{{site_url}}'  => SITE_URL,
-            '{{user_name}}' => $client_info->nome != "" && $client_info->nome != NULL ? explode(' ', $client_info->nome)[0] : utf8_decode('Usuário'),
-            '{{code}}'      => $code_confirmation
+            '{{user_name}}' => !empty($client_info->nome) ? explode(' ', $client_info->nome)[0] : 'Usuário',
+            '{{code}}'      => $code
         ];
+        $email->params = $params;
+    
+        $email->subject = utf8_decode('Código de confirmação');
+        $email->from    = ['name' => SITE_TITLE, 'email' => 'no-reply@' . parse_url(SITE_URL, PHP_URL_HOST)];
+        $email->to      = $client_info->email;
+        $email->content = $template_email;
 
         $email->sendMail();
 
-        if ($email->erro) {
-            header("HTTP/1.1 422 Unprocessable Content");
-            echo $email->error_reason;
-        }
+      
+    } else {
+        echo json_encode(['erro' => true, 'message' => 'Cliente não encontrado.']);
     }
 
-}
-
-if(isset($_SESSION['CLIENT'])) {
-    $client = $_SESSION['CLIENT'];
-    $requestCode = new RequestCode($client['id']);
-    $requestCode->requestGatewayCode();
-}
-else {
-    header("HTTP/1.1 401 Unauthorized");
+} else {
+    http_response_code(401);
+    echo json_encode(['erro' => true, 'message' => 'Não autorizado.']);
 }

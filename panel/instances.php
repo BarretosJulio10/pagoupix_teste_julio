@@ -27,6 +27,7 @@
                   <i class="now-ui-icons ui-1_simple-add"></i>
                   Novo whatsapp
                 </button>
+               
             </div>
           </div>
           
@@ -158,5 +159,44 @@
           </div>
         </div>
       </div>
+      
+         <!-- Modal remove instances -->
+      <div class="modal fade" data-backdrop="static" id="modalRemoveInstances" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Remover instância</h5>
+            </div>
+            <div class="modal-body">
+
+              <div class="row">
+
+                <div class="col-md-12 col-12" >
+                    
+                    <ul>
+                        <li>Use está função para remover a instância atual do seu whatsapp.</li>
+                        <li>Está opção é útil caso sua atual instância apresente erros para se conectar.</li>
+                        <li>Lembre-se que após este procedimento, você deve configurar suas cobranças novamente na aba "Configurar cobranças".</li>
+                        
+                    </ul>
+                     
+                </div>
+
+
+                
+
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" onclick="removeInstance();" id="btnremoveInstance"  class="btn btn-danger">Prosseguir</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
 
       <?php include_once 'inc/footer.php'; ?>

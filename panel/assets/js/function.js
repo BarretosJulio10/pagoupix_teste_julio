@@ -485,6 +485,7 @@ $(function() {
 
         $('#whatsapp_client_charge').mask(SPMaskBehavior, spOptions);
 
+
     }
 
 });
@@ -508,6 +509,29 @@ function checkboxvalueBolean(id) {
     else return false;
 }
 
+
+
+    function removeInstance(){
+        $("#btnremoveInstance").prop('disabled');
+        $.post(urlsite + '/panel/model/controller/client/removeInstance.php', function(data){
+            
+            try {
+              const obj = JSON.parse(data);
+              if(obj.erro){
+                nowuiDashboard.showNotification('danger','bottom','right',obj.message, 'now-ui-icons ui-1_bell-53');
+              }else{
+                nowuiDashboard.showNotification('success','bottom','right',obj.message, 'now-ui-icons ui-1_bell-53');
+                setTimeout(function(){
+                location.href="";    
+                }, 3000);
+                
+              }
+            } catch (e) {
+              console.log(e);
+            }
+          });
+    }
+    
 
 $(".active_charges_lasted").on('change', function(e){
 

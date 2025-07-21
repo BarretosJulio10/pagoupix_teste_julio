@@ -1,19 +1,24 @@
 <?php
 
-if ($_SERVER['SERVER_NAME'] != 'pagou.pix') {
  //define('HOSTNAME', 'localhost');
- define('HOSTNAME', '177.234.154.35'); 
- define('USERNAME', 'pagoupix_sistema');
- define('PASSWORD', 'AgVYfg3kBF6G');
- define('DATABASE', 'pagoupix_sistema');
- define('DOMAIN', 'pagoupix.com.br');
-} else {
-  define('HOSTNAME', 'localhost');
-  define('USERNAME', 'root');
-  define('PASSWORD', '');
-  define('DATABASE', 'jobs_pagoupix');
-  define('DOMAIN', 'pagou.pix');
-}
+ if (!defined('HOSTNAME')) {
+    define('HOSTNAME', '177.234.154.35');
+ }
+ if (!defined('USERNAME')) {
+    define('USERNAME', 'pagoupix_sistema');
+ }
+ 
+ if (!defined('PASSWORD')) {
+    define('PASSWORD', 'AgVYfg3kBF6G');
+ }
+ 
+ if (!defined('DATABASE')) {
+   define('DATABASE', 'pagoupix_sistema');
+ }
+ if (!defined('DOMAIN')) {
+  define('DOMAIN', 'pagoupix.com.br');
+ }
+
 
  class Conn{
 

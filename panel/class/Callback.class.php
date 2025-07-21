@@ -124,6 +124,11 @@ class Callback extends Conn{
     public function callback(){
         
        if($this->erro){ return false; }
+       
+       if($this->invoice->status == 'approved'){ 
+           http_response_code(200);
+           return true;  
+       }
 
        if($this->gateway == "mercadopago"){  self::mercadopago(); }
        if($this->gateway == "paghiper"){  self::paghiper(); }

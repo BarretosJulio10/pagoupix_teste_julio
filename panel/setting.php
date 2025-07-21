@@ -108,7 +108,7 @@
                         </div>
                         
                         <div class="col-md-6 text-right">
-                            <p style="font-size:12px;" >Cortesia de <a href="https://cron-job.org" target="_blank" >cron-job.org <i class="fa fa-heart"></i> </a>  </p>
+                            <p style="font-size:12px;" > &nbsp; </p>
                         </div>
                         
                         <div class="col-md-4">

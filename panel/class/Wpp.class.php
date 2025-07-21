@@ -4,17 +4,16 @@
  * Wpp
  */
 class Wpp extends Conn{
+
+    public $conn;
+    public $pdo;
+    public $client_id;
     
-  private $version_api;
+  function __construct($id=0){
+    $this->conn      = new Conn;
+    $this->pdo       = $this->conn->pdo();
+    $this->client_id = $id;
 
-
-  function __construct($id=0, $version_api = 'v2'){
-      
-        $this->conn      = new Conn;
-        $this->pdo       = $this->conn->pdo();
-        $this->client_id = $id;
-        $this->domain    = $this->conn->getDomain();
-        $this->version_api = $version_api;
     }
 
 
@@ -88,7 +87,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/status/'.$idinstance,
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/status/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -119,15 +118,15 @@ class Wpp extends Conn{
                 }else{
                     self::changeStatusInstance($idinstance,'allow');
                     
-                    return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
+                    return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
                 }
             }else{
-                return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
+                return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
             }
             
         } catch(\Exception  $e){
             
-             return json_encode(array('erro' => true, 'message' =>  'Nao conectado'));
+             return json_encode(array('erro' => true, 'message' =>  'Não conectado'));
         }
         
     }
@@ -139,7 +138,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/start/'.$idinstance,
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/start/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -154,7 +153,6 @@ class Wpp extends Conn{
         ));
         
         $response = curl_exec($curl);
-    
         curl_close($curl);
       
         return true;
@@ -164,12 +162,12 @@ class Wpp extends Conn{
     
     
      public function createInstance($idinstance){
-         
+        
         $access_token = self::getAccessToken();
         
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/create?token='.trim($idinstance).'&name='.trim($idinstance),
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/create?token='.trim($idinstance).'&name='.trim($idinstance),
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -185,7 +183,7 @@ class Wpp extends Conn{
         
         $response = curl_exec($curl);
         curl_close($curl);
-        
+
         try{
             
             if(json_decode($response)){
@@ -216,7 +214,7 @@ class Wpp extends Conn{
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/disconnect/'.$idinstance,
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/disconnect/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -259,14 +257,14 @@ class Wpp extends Conn{
     }
 
 
-    public function getQrcode($idinstance){
+    public function delete_account($idinstance){
         
         $access_token = self::getAccessToken();
-       
+        
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://'.$this->domain.'/api/'.$this->version_api.'/instance/qrcode/'.$idinstance,
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/remove/'.$idinstance,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
@@ -281,7 +279,55 @@ class Wpp extends Conn{
         ));
         
         $response = curl_exec($curl);
+        curl_close($curl);
+        
+                
+        try{
+            
+            if(json_decode($response)){
+                $dados = json_decode($response);
+                
+                if($dados->status == "success"){
+                    
+                    return true;
+                    
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+            
+        } catch(\Exception  $e){
+             return false;
+        }
+                
+    }
 
+
+    public function getQrcode($idinstance){
+        
+        $access_token = self::getAccessToken();
+       
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => rtrim(SITE_URL, '/') . '/api/'.API_VERSION.'/instance/qrcode/'.$idinstance,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            'Access-token: '.$access_token,
+            'Cookie: Cookie_2=value'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
         curl_close($curl);
         
         try{
@@ -304,7 +350,6 @@ class Wpp extends Conn{
              return json_encode(array('erro' => true, 'message' =>  'Desculpe, tente mais tarde.'));
          }
 
-       
     }
 
 }

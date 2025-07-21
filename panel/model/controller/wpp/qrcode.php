@@ -18,6 +18,7 @@ if (isset($_SESSION['CLIENT']) && isset($_POST['idinstance'])) {
                     // get status
                     $status_instance = json_decode($wpp->getStatus($instance_data->name));
                     if ($status_instance->erro) {
+                    
    
                             // qrcode only
                             $qrcode = $wpp->getQrcode($instance_data->name);

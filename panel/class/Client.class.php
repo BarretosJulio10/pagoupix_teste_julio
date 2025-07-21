@@ -31,6 +31,20 @@ class Client extends Conn{
 
 
     }
+
+  public function removeInstanceAll(){
+
+      $query_remove = $this->pdo->query("DELETE FROM `instances` WHERE client_id='{$this->client_id}'");
+
+      if($query_remove){
+        return true;
+      }else{
+        return false;
+      }
+
+    }
+    
+
     
     public function getComprovantesParceiro($id){
        
@@ -415,7 +429,7 @@ class Client extends Conn{
     public function getClientByid($id){
       $query_consult = $this->pdo->query("SELECT * FROM `client` WHERE id='{$id}'");
       $fetch_consult = $query_consult->fetchAll(PDO::FETCH_OBJ);
-
+    
       if(count($fetch_consult)>0){
         return $fetch_consult[0];
       }else{

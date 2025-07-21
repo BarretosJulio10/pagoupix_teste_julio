@@ -38,7 +38,7 @@
         if($instance){
             
             $wpp->createInstance($name);
-
+    
             echo json_encode(array('erro' => false, 'msg' => 'Instância adicionada', 'instance' => $name));
             die;
 

@@ -27,7 +27,7 @@
                 $email->subject = utf8_decode('Recuperar senha');
                 $email->from    = array('name' => SITE_TITLE, 'email' => 'no-reply@'.parse_url(SITE_URL, PHP_URL_HOST));
                 $email->to      = $client_info->email;
-                $email->content = utf8_decode($template_email);
+                $email->content = $template_email;
                 $email->params  = [
                     '{{site_name}}'  => SITE_TITLE,
                     '{{site_url}}'   => SITE_URL,

@@ -52,14 +52,14 @@ if (isset($_REQUEST['url'])) {
                 if ($signatures) {
 
                     if ($setting_charge_interval->active > 0) {
-
+                        
                         if ($setting_charge_interval->next_date != date('d-m-Y')) {
                             die(json_encode(['success' => false, 'message' => 'not day']));
                         }
 
                         $setting_charge_interval->next_date = date('d-m-Y', strtotime('+' . $setting_charge_interval->interval_days . ' days'));
 
-                        $options->editOption('setting_charge_interval', json_encode($setting_charge_interval));
+                        //$options->editOption('setting_charge_interval', json_encode($setting_charge_interval));
 
                         // verifica whatsapp
                         $instance = $charges->getInstanceByClient();
@@ -133,47 +133,38 @@ if (isset($_REQUEST['url'])) {
                                         $dados->instance_id = $instance->name;
                                         $dados->phone = $signature->ddi . $signature->whatsapp;
 
-
-                                        /*conecta whatsapp em caso de queda do servidor*/
-                                        $curl = curl_init();
-
-                                        curl_setopt_array($curl, array(
-                                            CURLOPT_URL => 'http://whatsapp.' . parse_url(SITE_URL, PHP_URL_HOST) . '/session/connect',
-                                            CURLOPT_RETURNTRANSFER => true,
-                                            CURLOPT_ENCODING => '',
-                                            CURLOPT_MAXREDIRS => 10,
-                                            CURLOPT_TIMEOUT => 2,
-                                            CURLOPT_FOLLOWLOCATION => true,
-                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                            CURLOPT_CUSTOMREQUEST => 'POST',
-                                            CURLOPT_POSTFIELDS => '{"Subscribe":["Message"],"Immediate":false}',
-                                            CURLOPT_HTTPHEADER => array(
-                                                'Token: ' . trim($instance->name),
-                                                'Content-Type: application/json'
-                                            ),
-                                        )
-                                        );
-
-                                        $response = curl_exec($curl);
-                                        curl_close($curl);
-
+                                     
                                         $charges->insertFila($dados);
                                         $charges->insertCharge($dadosInvoice);
 
+                                    }else{
+                                        echo 'no template';
                                     }
 
+                                }else{
+                                    echo 'client no plan';
                                 }
 
                             }
 
+                        }else{
+                            echo 'no intance';
                         }
 
                     }
 
+                }else{
+                    echo 'no clients';
                 }
 
+            }else{
+                echo 'no settngs';
             }
+        }else{
+            echo 'no settngs carge';
         }
+    }else{
+        echo 'no user';
     }
 
 }

@@ -19,6 +19,14 @@ if ($_SERVER['SERVER_NAME'] == 'pagou.pix') {
     define('SITE_URL', 'https://pagoupix.com.br');
 }
 
+
+// Database host
+define('HOSTNAME', '177.234.154.35');
+define('USERNAME', 'pagoupix_sistema');
+define('PASSWORD', 'AgVYfg3kBF6G');
+define('DATABASE', 'pagoupix_sistema');
+  
+
 define('FORM_URL', 'https://form.pagoupix.com.br');
 define('SITE_TITLE', 'Pagou Pix');
 $url_system = SITE_URL . '/';
@@ -33,7 +41,11 @@ define('DAYS_DUE', 7);
 define('VALOR_ASSINATURA', '49,90');
 
 // version API Whatsapp
-define('VERSION_API_WPP', 'v2');
+define('API_VERSION', 'v3');
+
+// API evo
+define('EVO_ENDPOINT', 'https://evolution.pagoupix.com.br');
+define('EVO_TOKEN', 'f4605620efebc20566233aae05d9ed39');
 
 // whatsapp compra de creditos parceiro
 define('WPP_SUPORTE', '21982153814');
@@ -59,7 +71,7 @@ define('COR_HEAD_2', '#071332');  // hexadecimal // --cor head panel
 //define('COR_HEAD_2','#07121a');  // hexadecimal // --cor head panel
 
 // extensao do audio gravado pelo user (nao mexer)
-$ext_audio = ".ogg";
+$ext_audio = ".mp3";
 
 // google auth login
 define('AUTH_G_ENABLE', false);
