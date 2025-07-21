@@ -15,19 +15,21 @@ if ($_SERVER['SERVER_NAME'] == 'pagou.pix') {
     define('SITE_URL', 'https://pagoupix.computatus.org');
 } elseif ($_SERVER['SERVER_NAME'] == 'pagoupix.arodevsistemas.com.br'){
     define('SITE_URL', 'https://pagoupix.arodevsistemas.com.br');
+} elseif ($_SERVER['SERVER_NAME'] == 'pagou.hyperrastreador.com.br'){
+    define('SITE_URL', 'https://pagou.hyperrastreador.com.br');
 } else {
-    define('SITE_URL', 'https://pagoupix.com.br');
+    define('SITE_URL', 'https://pagou.hyperrastreador.com.br');
 }
 
 
 // Database host
-define('HOSTNAME', '177.234.154.35');
-define('USERNAME', 'pagoupix_sistema');
-define('PASSWORD', 'AgVYfg3kBF6G');
-define('DATABASE', 'pagoupix_sistema');
+define('HOSTNAME', 'localhost');
+define('USERNAME', 'u193005957_pagoupix_data');
+define('PASSWORD', '7R~aE$JOP~');
+define('DATABASE', 'u193005957_pagoupix_data');
   
 
-define('FORM_URL', 'https://form.pagoupix.com.br');
+define('FORM_URL', 'https://form.pagou.hyperrastreador.com.br');
 define('SITE_TITLE', 'Pagou Pix');
 $url_system = SITE_URL . '/';
 
